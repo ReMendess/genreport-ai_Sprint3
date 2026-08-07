@@ -1,0 +1,10 @@
+OK   | import fitz
+OK   | import langchain_community
+OK   | Chroma
+OK   | FastEmbedEmbeddings
+OK   | ChatOllama
+OK   | RecursiveCharacterTextSplitter
+OK   | app.config
+OK   | app.ui
+OK   | app.dashboard
+OK   | streamlit_app

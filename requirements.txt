@@ -1,0 +1,14 @@
+langchain
+langchain-community
+langchain-groq
+langchain-text-splitters
+chromadb
+fastembed
+openai
+pymupdf
+pdfplumber
+pandas
+numpy
+python-dotenv
+tiktoken
+streamlit
