@@ -7,29 +7,9 @@ from __future__ import annotations
 
 import streamlit as st
 
-from app.config import DASA_ACCENT, DASA_BLUE, DASA_BLUE_DARK, DASA_BLUE_LIGHT
 from app.report_parser import ParsedReport
-
-# Paleta de cores para classificação de risco (sem alarmismo)
-RISK_COLORS = {
-    "alto": "#B8860B",  # dourado/âmbar — atenção, não alarme
-    "moderado": "#2E86AB",  # azul médio — acompanhamento
-    "baixo": "#2E7D32",  # verde — sem alteração relevante
-}
-
-RISK_BADGE_COLORS = {
-    "alto": "#FFF4E0",
-    "moderado": "#E8F0FA",
-    "baixo": "#E8F5E9",
-}
-
-
-def _risk_color(risk_level: str) -> str:
-    return RISK_COLORS.get(risk_level.lower(), "#4A5F7A")
-
-
-def _risk_badge_color(risk_level: str) -> str:
-    return RISK_BADGE_COLORS.get(risk_level.lower(), "#F0F2F5")
+from app.risk_card import render_risk_card, sort_cards_by_severity
+from app.risk_classifier import RISK_COLORS, RiskCardData
 
 
 def render_dashboard_header(report: ParsedReport) -> None:
@@ -63,13 +43,15 @@ def render_dashboard_header(report: ParsedReport) -> None:
 
 def render_summary_cards(report: ParsedReport) -> None:
     """Resumo geral com contagem de riscos e ancestralidade (se houver)."""
+    from app.risk_classifier import RiskLevel
+
     st.markdown("## Resumo geral")
 
     col1, col2, col3 = st.columns(3)
     with col1:
         st.markdown(
             f"""
-            <div class="dasa-summary-card" style="border-top: 4px solid {RISK_COLORS['alto']};">
+            <div class="dasa-summary-card" style="border-top: 4px solid {RISK_COLORS[RiskLevel.INCREASED.value]};">
                 <div class="dasa-summary-value">{report.high_risk_count}</div>
                 <div class="dasa-summary-label">Riscos aumentados</div>
                 <div class="dasa-summary-hint">Predisposição genética elevada</div>
@@ -80,7 +62,7 @@ def render_summary_cards(report: ParsedReport) -> None:
     with col2:
         st.markdown(
             f"""
-            <div class="dasa-summary-card" style="border-top: 4px solid {RISK_COLORS['moderado']};">
+            <div class="dasa-summary-card" style="border-top: 4px solid {RISK_COLORS[RiskLevel.MODERATE.value]};">
                 <div class="dasa-summary-value">{report.moderate_risk_count}</div>
                 <div class="dasa-summary-label">Riscos moderados</div>
                 <div class="dasa-summary-hint">Acompanhamento preventivo</div>
@@ -91,7 +73,7 @@ def render_summary_cards(report: ParsedReport) -> None:
     with col3:
         st.markdown(
             f"""
-            <div class="dasa-summary-card" style="border-top: 4px solid {RISK_COLORS['baixo']};">
+            <div class="dasa-summary-card" style="border-top: 4px solid {RISK_COLORS[RiskLevel.NORMAL.value]};">
                 <div class="dasa-summary-value">{report.no_relevant_change_count}</div>
                 <div class="dasa-summary-label">Sem alteração relevante</div>
                 <div class="dasa-summary-hint">Resultado dentro do esperado</div>
@@ -120,38 +102,16 @@ def render_findings(report: ParsedReport) -> None:
         st.info("Nenhum achado identificado no relatório.")
         return
 
-    for finding in report.sorted_findings:
-        color = _risk_color(finding.risk_level)
-        badge_bg = _risk_badge_color(finding.risk_level)
+    # Converte achados em dados normalizados e renderiza com RiskCard
+    cards = [RiskCardData.from_finding(f) for f in report.findings]
+    cards = sort_cards_by_severity(cards)
 
-        recommendations_html = ""
-        if finding.recommendations:
-            items = "".join(
-                f"<li>{rec}</li>" for rec in finding.recommendations
-            )
-            recommendations_html = (
-                f'<div class="dasa-finding-recs"><strong>Recomendações:</strong>'
-                f"<ul>{items}</ul></div>"
-            )
+    # Gera resumos automáticos (com cache para evitar chamadas repetidas ao LLM)
+    from app.summarizer import generate_risk_summary_from_card
 
-        st.markdown(
-            f"""
-            <div class="dasa-finding-card">
-                <div class="dasa-finding-header">
-                    <div>
-                        <div class="dasa-finding-category">{finding.category}</div>
-                        <div class="dasa-finding-title">{finding.condition}</div>
-                    </div>
-                    <span class="dasa-risk-badge" style="background:{badge_bg}; color:{color}; border:1px solid {color}33;">
-                        {finding.risk_class}
-                    </span>
-                </div>
-                <p class="dasa-finding-desc">{finding.description}</p>
-                {recommendations_html}
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
+    for card in cards:
+        summary = generate_risk_summary_from_card(card)
+        render_risk_card(card, key=f"finding_{card.condition}", summary=summary)
 
 
 def render_ancestry(report: ParsedReport) -> None:

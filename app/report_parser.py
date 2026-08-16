@@ -15,6 +15,7 @@ from app.report_pipeline import resolve_report_pdf
 from app.text_cleaner import clean_text
 
 # Mapeamento dos níveis de risco para classificação amigável
+# (mantido para compatibilidade; a normalização central está em risk_classifier)
 RISK_CLASSIFICATION = {
     "alto": "Risco aumentado",
     "moderado": "Risco moderado",
@@ -52,15 +53,33 @@ class ParsedReport:
 
     @property
     def high_risk_count(self) -> int:
-        return sum(1 for f in self.findings if f.risk_level.lower() == "alto")
+        from app.risk_classifier import RiskLevel, normalize_risk_level
+
+        return sum(
+            1
+            for f in self.findings
+            if normalize_risk_level(f.risk_level) == RiskLevel.INCREASED.value
+        )
 
     @property
     def moderate_risk_count(self) -> int:
-        return sum(1 for f in self.findings if f.risk_level.lower() == "moderado")
+        from app.risk_classifier import RiskLevel, normalize_risk_level
+
+        return sum(
+            1
+            for f in self.findings
+            if normalize_risk_level(f.risk_level) == RiskLevel.MODERATE.value
+        )
 
     @property
     def no_relevant_change_count(self) -> int:
-        return sum(1 for f in self.findings if f.risk_level.lower() == "baixo")
+        from app.risk_classifier import RiskLevel, normalize_risk_level
+
+        return sum(
+            1
+            for f in self.findings
+            if normalize_risk_level(f.risk_level) == RiskLevel.NORMAL.value
+        )
 
     @property
     def sorted_findings(self) -> list[Finding]:

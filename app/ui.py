@@ -213,6 +213,78 @@ def inject_dasa_styles() -> None:
                 margin-bottom: 0.2rem;
             }}
 
+            /* ===== RiskCard ===== */
+            .dasa-risk-card {{
+                background: #ffffff;
+                border: 1px solid #d9e6f5;
+                border-radius: 12px;
+                padding: 1.25rem 1.5rem;
+                margin-bottom: 1.25rem;
+                box-shadow: 0 2px 8px rgba(0, 40, 85, 0.06);
+                transition: box-shadow 0.2s ease;
+            }}
+
+            .dasa-risk-card:hover {{
+                box-shadow: 0 4px 16px rgba(0, 40, 85, 0.12);
+            }}
+
+            .dasa-risk-card-header {{
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 1rem;
+                margin-bottom: 0.6rem;
+            }}
+
+            .dasa-risk-card-title-block {{
+                min-width: 0;
+            }}
+
+            .dasa-risk-card-category {{
+                font-size: 0.72rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.06em;
+                color: {DASA_ACCENT};
+                margin-bottom: 0.1rem;
+            }}
+
+            .dasa-risk-card-title {{
+                font-size: 1.1rem;
+                font-weight: 700;
+                color: {DASA_BLUE_DARK};
+                line-height: 1.3;
+                word-wrap: break-word;
+            }}
+
+            .dasa-risk-card-short {{
+                color: #4A5F7A;
+                font-size: 0.9rem;
+                line-height: 1.55;
+                margin: 0 0 0.75rem 0;
+            }}
+
+            .dasa-risk-card-note {{
+                background: #F7FAFD;
+                border: 1px solid #E3EDF8;
+                border-radius: 8px;
+                padding: 0.6rem 0.85rem;
+                font-size: 0.8rem;
+                color: #4A5F7A;
+                line-height: 1.5;
+            }}
+
+            .dasa-risk-card-summary {{
+                background: {DASA_BLUE_LIGHT};
+                border: 1px solid #C5D8F0;
+                border-radius: 8px;
+                padding: 0.75rem 1rem;
+                margin-bottom: 0.75rem;
+                font-size: 0.9rem;
+                color: #1F3A5F;
+                line-height: 1.55;
+            }}
+
             .dasa-ancestry-bar {{
                 display: flex;
                 width: 100%;
