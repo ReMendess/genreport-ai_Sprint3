@@ -22,10 +22,26 @@ def _trim_context(context: str) -> str:
     return context[:MAX_CONTEXT_CHARS] + "\n\n[...]"
 
 
-def ask_question(vectordb, question: str) -> dict:
+def ask_question(
+    vectordb,
+    question: str,
+    conversation_context: str | None = None,
+) -> dict:
+    """Faz uma pergunta ao RAG, opcionalmente com contexto conversacional.
+
+    Parâmetros
+    ----------
+    vectordb
+        Índice vetorial do relatório.
+    question : str
+        Pergunta do usuário.
+    conversation_context : str, opcional
+        Histórico da conversa (últimas mensagens) para interpretar
+        referências como "isso", "esse risco". NÃO substitui o relatório.
+    """
     docs = vectordb.similarity_search(question, k=RETRIEVAL_K)
     context = _trim_context("\n\n".join(doc.page_content for doc in docs))
-    prompt = build_prompt(context, question)
+    prompt = build_prompt(context, question, conversation_context)
     response = get_llm().invoke(prompt)
 
     return {

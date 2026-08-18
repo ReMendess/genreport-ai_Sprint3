@@ -1,6 +1,7 @@
 import streamlit as st
 
 from app.config import RAW_DATA_DIR
+from app.conversation import ConversationManager
 from app.ui import inject_dasa_styles, render_hero, render_info_cards
 
 
@@ -36,12 +37,17 @@ def render_sidebar(report_name: str, fingerprint: str) -> None:
 
     st.sidebar.markdown("---")
     st.sidebar.markdown("### Ações")
+    if st.sidebar.button("Nova conversa"):
+        # Limpa apenas o histórico da conversa (não apaga relatório/índice)
+        st.session_state.conversation_messages = []
+        st.rerun()
+
     if st.sidebar.button("Reprocessar relatório"):
         from app.vector_store import clear_vector_cache
 
         clear_vector_cache()
         st.cache_resource.clear()
-        st.session_state.messages = []
+        st.session_state.conversation_messages = []
         st.rerun()
 
     st.sidebar.markdown("---")
@@ -81,13 +87,17 @@ def render_dashboard_page() -> None:
 
 
 def render_chat_page(vectordb) -> None:
-    """Tela do assistente conversacional (RAG) — funcionalidade existente."""
+    """Tela do assistente conversacional (RAG) — com contexto de sessão."""
     render_hero()
     render_info_cards()
 
     st.markdown("### Assistente genético")
 
-    for message in st.session_state.messages:
+    # Gerenciador de conversa (contexto de sessão)
+    conversation = ConversationManager(st.session_state)
+
+    # Exibe o histórico da conversa
+    for message in conversation.messages:
         with st.chat_message(message["role"], avatar="🧬" if message["role"] == "assistant" else "👤"):
             st.markdown(message["content"])
             if message.get("sources"):
@@ -97,32 +107,35 @@ def render_chat_page(vectordb) -> None:
     if prompt := st.chat_input("Faça uma pergunta sobre o seu relatório genético..."):
         from app.rag_engine import ask_question
 
-        st.session_state.messages.append({"role": "user", "content": prompt})
+        # Adiciona a pergunta do usuário ao histórico
+        conversation.add_message("user", prompt)
         with st.chat_message("user", avatar="👤"):
             st.markdown(prompt)
 
         with st.chat_message("assistant", avatar="🧬"):
             with st.spinner("Analisando relatório…"):
-                result = ask_question(vectordb, prompt)
+                # Usa o contexto conversacional para interpretar referências
+                # como "isso", "esse risco" — sem substituir o relatório
+                conversation_context = conversation.get_context()
+                result = ask_question(vectordb, prompt, conversation_context)
             st.markdown(result["answer"])
             if result["sources"]:
                 with st.expander("Fontes utilizadas"):
                     st.markdown(result["sources"])
 
-        st.session_state.messages.append(
-            {
-                "role": "assistant",
-                "content": result["answer"],
-                "sources": result["sources"],
-            }
+        # Adiciona a resposta do assistente ao histórico
+        conversation.add_message(
+            "assistant",
+            result["answer"],
+            sources=result["sources"],
         )
 
 
 def main():
     inject_dasa_styles()
 
-    if "messages" not in st.session_state:
-        st.session_state.messages = []
+    if "conversation_messages" not in st.session_state:
+        st.session_state.conversation_messages = []
 
     try:
         with st.spinner("Carregando índice do relatório…"):

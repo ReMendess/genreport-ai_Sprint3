@@ -140,14 +140,22 @@ RESUMO:
 """
 
 
-def build_prompt(context, question):
+def build_prompt(context, question, conversation_context: str | None = None):
+
+    conversation_block = ""
+    if conversation_context:
+        conversation_block = f"""
+HISTÓRICO DA CONVERSA (use apenas para entender referências como "isso",
+"esse resultado", "e no meu caso?" — NÃO substitui o relatório):
+{conversation_context}
+"""
 
     prompt = f"""
     {SYSTEM_PROMPT}
 
-    CONTEXTO GENÉTICO:
+    CONTEXTO GENÉTICO (fonte de verdade — prevalece sobre o histórico):
     {context}
-
+    {conversation_block}
     PERGUNTA:
     {question}
 

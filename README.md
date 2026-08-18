@@ -12,7 +12,7 @@
 
 # Enterprise Challenge - SPRINT 2 - DASA
 
-Aplicação de **conversação inteligente de relatórios genéticos da DASA** que transforma PDFs técnicos em uma experiência inteligente, conversacional, clara e orientada à prevenção — utilizando **RAG** (Retrieval-Augmented Generation), busca semântica e IA generativa via **Groq** (Llama 3.3).
+Aplicação de **conversação inteligente de relatórios genéticos da DASA** que transforma PDFs técnicos em uma experiência inteligente, conversacional, clara e orientada à prevenção — utilizando **RAG** (Retrieval-Augmented Generation), busca semântica e IA generativa via **Groq** (GPT-OSS 120B).
 
 ### Link do vídeo: https://youtu.be/sMxFcjAoclM
 
@@ -153,7 +153,7 @@ ________________________________________
 | Diferencial | Impacto |
 |----------------|-----------|
 |RAG | redução de alucinação |
-|Groq (Llama 3.3) | respostas rápidas e gratuitas |
+|Groq (GPT-OSS 120B) | respostas rápidas e gratuitas |
 |Busca semântica | maior precisão |
 |ChromaDB | escalabilidade |
 |Engenharia de prompts | controle comportamental |
@@ -169,7 +169,7 @@ O fluxo segue uma arquitetura **RAG** em quatro etapas:
 1. **Ingestão** — O PDF em `data/raw/genetic_report.pdf` (ou o primeiro `.pdf` da pasta) é lido automaticamente.
 2. **Processamento** — Texto extraído (PyMuPDF), limpo e dividido em trechos (*chunks*).
 3. **Indexação** — Embeddings (`sentence-transformers/all-MiniLM-L6-v2`) armazenados no ChromaDB em `data/vectordb/`.
-4. **Consulta** — A pergunta do usuário recupera os trechos mais relevantes; o modelo **Llama 3.3** (Groq) gera a resposta usando apenas esse contexto.
+4. **Consulta** — A pergunta do usuário recupera os trechos mais relevantes; o modelo **GPT-OSS 120B** (Groq) gera a resposta usando apenas esse contexto.
 
 
 Na primeira execução, a indexação pode levar alguns minutos. Nas seguintes, o sistema reutiliza o cache vetorial enquanto o arquivo PDF não for alterado.
@@ -201,7 +201,7 @@ flowchart TB
     subgraph Consulta
         USR["Pergunta do usuário"]
         RET["Busca semântica (top-k)"]
-        LLM["Groq · Llama 3.3"]
+        LLM["Groq · GPT-OSS 120B"]
         RSP["Resposta + fontes"]
     end
 
@@ -230,7 +230,7 @@ data/raw/genetic_report.pdf
         ↓
   Pergunta → similarity_search → prompt (prompt_engineering)
         ↓
-  LLM Groq (llama-3.3-70b-versatile) → resposta contextualizada
+  LLM Groq (openai/gpt-oss-120b) → resposta contextualizada
 ```
 
 ---
@@ -241,7 +241,7 @@ data/raw/genetic_report.pdf
 |--------|------------|
 | Interface | [Streamlit](https://streamlit.io/) |
 | Orquestração IA | [LangChain](https://www.langchain.com/) |
-| LLM | [Groq](https://groq.com/) + modelo `llama-3.3-70b-versatile` |
+| LLM | [Groq](https://groq.com/) + modelo `openai/gpt-oss-120b` |
 | Embeddings | `sentence-transformers/all-MiniLM-L6-v2` |
 | Vetorização | [ChromaDB](https://www.trychroma.com/) |
 | PDF | [PyMuPDF](https://pymupdf.readthedocs.io/) (`fitz`) |
@@ -287,7 +287,7 @@ genreport-ai-streamlit/
 
 ```bash
 GROQ_API_KEY=gsk_sua_chave_aqui
-GROQ_MODEL=llama-3.3-70b-versatile
+GROQ_MODEL=openai/gpt-oss-120b
 ```
 
 4. Relatório genético em PDF na pasta `data/raw/`
@@ -334,7 +334,7 @@ Crie um arquivo `.env` na raiz do projeto com sua chave da API Groq (obtida grat
 
 ```bash
 GROQ_API_KEY=gsk_sua_chave_aqui
-GROQ_MODEL=llama-3.3-70b-versatile
+GROQ_MODEL=openai/gpt-oss-120b
 ```
 
 ### 6. Execute a aplicação web
