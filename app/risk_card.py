@@ -80,13 +80,6 @@ def render_risk_card(
             {summary_html}
 
             <p class="dasa-risk-card-short">{short_desc}</p>
-
-            <div class="dasa-risk-card-note">
-                <strong>Predisposição ≠ diagnóstico:</strong>
-                este achado indica uma <em>predisposição genética</em>, não
-                um diagnóstico. A presença de uma variante não significa que
-                a condição vai se manifestar.
-            </div>
         </div>
         """
     )

@@ -30,6 +30,16 @@ def render_sidebar(report_name: str, fingerprint: str) -> None:
         """,
         unsafe_allow_html=True,
     )
+
+    # Navegação no topo (logo abaixo do logo)
+    st.sidebar.markdown("### Navegação")
+    page = st.sidebar.radio(
+        "Ir para",
+        ["📊 Dashboard", "💬 Assistente"],
+        label_visibility="collapsed",
+    )
+
+    st.sidebar.markdown("---")
     st.sidebar.markdown("### Relatório carregado")
     st.sidebar.success(f"**{report_name}**")
     st.sidebar.caption(f"Origem: `{RAW_DATA_DIR}`")
@@ -66,15 +76,6 @@ def render_sidebar(report_name: str, fingerprint: str) -> None:
         "Sempre consulte um profissional de saúde."
     )
 
-
-def render_navigation() -> str:
-    """Barra de navegação principal (Dashboard / Assistente)."""
-    st.sidebar.markdown("### Navegação")
-    page = st.sidebar.radio(
-        "Ir para",
-        ["📊 Dashboard", "💬 Assistente"],
-        label_visibility="collapsed",
-    )
     return page
 
 
@@ -153,8 +154,7 @@ def main():
             st.error(f"Erro ao processar o relatório: {exc}")
         return
 
-    render_sidebar(report_name, fingerprint)
-    page = render_navigation()
+    page = render_sidebar(report_name, fingerprint)
 
     if page == "📊 Dashboard":
         render_dashboard_page()
