@@ -10,11 +10,11 @@
 
 ---
 
-# Enterprise Challenge - SPRINT 2 - DASA
+# Enterprise Challenge - SPRINT 3 - DASA
 
-Aplicação de **conversação inteligente de relatórios genéticos da DASA** que transforma PDFs técnicos em uma experiência inteligente, conversacional, clara e orientada à prevenção — utilizando **RAG** (Retrieval-Augmented Generation), busca semântica e IA generativa via **Groq** (GPT-OSS 120B).
+Solução de **conversação inteligente de relatórios genéticos da DASA** que transforma PDFs técnicos em uma experiência inteligente, conversacional, clara e visual — utilizando **RAG** (Retrieval-Augmented Generation), busca semântica e IA generativa via **Groq** (GPT-OSS 120B).
 
-### Link do vídeo: https://youtu.be/sMxFcjAoclM
+### Link do vídeo: 
 
 ## Índice
 
@@ -38,7 +38,7 @@ Aplicação de **conversação inteligente de relatórios genéticos da DASA** q
 
 ## Autor
 
-**Enterprise Challenge — Sprint 1 — DASA**
+**Enterprise Challenge — Sprint 3 — DASA**
 
 | Nome | RM | 
 |------------|-----|
@@ -48,16 +48,21 @@ Aplicação de **conversação inteligente de relatórios genéticos da DASA** q
 
 ## Sobre o projeto
 
-O **AIReport Gen-Experience** foi desenvolvido para o **Enterprise Challenge FIAP × Dasa**, especificamente para o produto **Genera**: exames genéticos que entregam informações valiosas sobre predisposições, metabolismo, saúde e muito mais.
+O **AIReport Gen-Experience** foi criado exclusivamente para o **Enterprise Challenge FIAP × Dasa**, especificamente para o produto da **Genera**: exames genéticos que entregam informações valiosas sobre predisposições, metabolismo, saúde e muito mais.
 
-O desafio central é que relatórios genéticos costumam ser:
+O desafio central é que os relatórios genéticos costumam ser:
 
-- Extensos e em **linguagem técnica**
+- Extensos e apresentar uma **linguagem técnica**
 - Entregues em **PDF estático**, com pouca interatividade
-- Difíceis de interpretar pelo **cliente** sem apoio profissional
+- Difíceis de compreender pelo **cliente** sem apoio profissional
 
 O **AIReport Gen-Experience** permite que o usuário **converse com o próprio relatório**: faça perguntas em linguagem natural e receba respostas baseadas apenas no conteúdo do documento, com tom muito acessível e focado em prevenção.
 
+Para essa terceira fase desenvolvemos uma interface visual limpa que resume o relatório por meio de cards e dashboards, facilitando ainda mais o entendimento do usuário e permitindo uma navegação mais precisa dentro de suas próprias caracteristicas genéticas.
+
+Indo além, mudamos a forma de processamento do LLM antigo, que antes rodava um modelo menor loca. Agora utilizamos uma API e comunicação sincrona com um modelo mais forte, permitindo melhor desempenho, tempo de resposta e mais próximo das melhores práticas de mercado.
+
+Por fim adicionamos um agente personalizado com memória, dessa forma o agente tem capacidade de se lembrar da conversa e conseguir explicar ainda melhor os pontos principais do relatório.
 
 <img src="assets/home_page.png" widht="150">
 
@@ -68,6 +73,7 @@ O **AIReport Gen-Experience** permite que o usuário **converse com o próprio r
 | Leitura automática do PDF | Carrega o relatório de `data/raw/` sem upload manual |
 | Extração e limpeza de texto | PyMuPDF + normalização para indexação |
 | Base vetorial persistida | ChromaDB com cache — reindexa só se o PDF mudar |
+| Dashboard | Página principal com gráficos totalmente customizada de acordo com o relatório do usuário |
 | Chat inteligente | Perguntas e respostas com contexto recuperado (RAG) |
 | Interface Dasa | Streamlit com identidade visual azul e branco |
 | Guardrails de IA | Sem diagnóstico, sem prescrição, linguagem preventiva |
@@ -80,12 +86,22 @@ O **AIReport Gen-Experience** permite que o usuário **converse com o próprio r
 
 <img src="assets/ollama_running.png" widht="150">
 
+### Dashboard
 
+<img src="assets/cards.png" widht="150">
 
-### Resposta do Modelo
+### Resumo Dinâmico
+
+<img src="assets/resumo.png" widht="150">
+
+### Assistente
 
 <img src="assets/resposta_agente.png" widht="150">
 <img src="assets/fontes_Resposta.png" widht="150">
+
+### Assistente com Memória
+
+<img src="assets/modelo_memoria.png" widht="150">
 
 ---
 

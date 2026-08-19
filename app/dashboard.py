@@ -109,9 +109,12 @@ def render_findings(report: ParsedReport) -> None:
     # Gera resumos automáticos (com cache para evitar chamadas repetidas ao LLM)
     from app.summarizer import generate_risk_summary_from_card
 
+    import re
+
     for card in cards:
         summary = generate_risk_summary_from_card(card)
-        render_risk_card(card, key=f"finding_{card.condition}", summary=summary)
+        safe_condition = re.sub(r"[^a-zA-Z0-9_-]", "_", card.condition)[:50]
+        render_risk_card(card, key=f"finding_{safe_condition}", summary=summary)
 
 
 def render_ancestry(report: ParsedReport) -> None:

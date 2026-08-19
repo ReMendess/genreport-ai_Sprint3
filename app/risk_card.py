@@ -16,6 +16,8 @@ fora da camada Streamlit — este módulo apenas apresenta os dados.
 """
 from __future__ import annotations
 
+import re
+
 import streamlit as st
 
 from app.risk_classifier import (
@@ -51,7 +53,9 @@ def render_risk_card(
     icon = risk_icon(data.risk_level_id)
     short_desc = risk_short_description(data.risk_level_id)
 
-    expander_key = key or f"risk_{data.condition}_{data.risk_level_id}"
+    # Chave sanitizada para o expander (sem caracteres especiais/duplicatas)
+    safe_condition = re.sub(r"[^a-zA-Z0-9_-]", "_", data.condition)[:50]
+    expander_key = key or f"risk_{safe_condition}_{data.risk_level_id}"
 
     # Resumo automático (se disponível)
     summary_html = ""
