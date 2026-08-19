@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <strong>Enterprise Challenge · Sprint 2 · Dasa / Genera</strong>
+  <strong>Enterprise Challenge · Sprint 3 · Dasa / Genera</strong>
 </p>
 
 ---
@@ -14,7 +14,7 @@
 
 Solução de **conversação inteligente de relatórios genéticos da DASA** que transforma PDFs técnicos em uma experiência inteligente, conversacional, clara e visual — utilizando **RAG** (Retrieval-Augmented Generation), busca semântica e IA generativa via **Groq** (GPT-OSS 120B).
 
-### Link do vídeo: 
+### Link do vídeo: https://youtu.be/Bxk57Nue2yY
 
 ## Índice
 
