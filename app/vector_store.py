@@ -9,8 +9,11 @@ from app.embeddings import load_embedding_model
 
 HASH_FILE = VECTORDB_DIR / ".source_hash"
 CHROMA_DB_FILE = VECTORDB_DIR / "chroma.sqlite3"
-CHUNK_SIZE = 1000
-CHUNK_OVERLAP = 80
+# Chunks curtos (<=~128 tokens) para ser compatíveis com o padding fixo
+# de fastembed 0.8.0 (128 tokens) e evitar o erro "inhomogeneous shape"
+# ao reindexar em batch.
+CHUNK_SIZE = 400
+CHUNK_OVERLAP = 40
 
 
 def _cache_key(source_fingerprint: str) -> str:
@@ -60,6 +63,22 @@ def try_load_cached_store(source_fingerprint: str):
         return _load_existing_store(load_embedding_model())
     except Exception:
         return None
+
+
+def is_cache_valid(source_fingerprint: str) -> bool:
+    """Indica se o índice persistido corresponde ao fingerprint informado.
+
+    Não carrega o store (apenas confere hash + arquivos) — uso em /status.
+    """
+    try:
+        return bool(
+            HASH_FILE.exists()
+            and _has_persisted_store()
+            and HASH_FILE.read_text(encoding="utf-8").strip()
+            == _cache_key(source_fingerprint)
+        )
+    except OSError:
+        return False
 
 
 def get_or_create_vector_store(text: str, source_fingerprint: str):

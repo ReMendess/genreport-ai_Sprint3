@@ -1,5 +1,8 @@
-# Environment
+# Environment & secrets
 .env
+.env.local
+.env.*
+!.env.example
 
 # Python
 __pycache__/
@@ -14,6 +17,17 @@ venv/
 # Data
 data/vectordb/
 data/processed/
+data/raw/*.pdf
+data/consent.json
+
+# Logs (may contain personal data)
+logs/
+*.log
+
+# Mobile (Expo)
+mobile/node_modules/
+mobile/.expo/
+mobile/dist/
 
 # IDE
 .vscode/

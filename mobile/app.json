@@ -1,0 +1,27 @@
+{
+  "expo": {
+    "name": "AIReport Gen-Experience",
+    "slug": "aireport-gen-experience",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#003DA5",
+      "resizeMode": "contain"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.aireport.genexperience"
+    },
+    "android": {
+      "package": "com.aireport.genexperience",
+      "adaptiveIcon": {
+        "backgroundColor": "#003DA5"
+      }
+    },
+    "web": {
+      "bundler": "metro"
+    }
+  }
+}

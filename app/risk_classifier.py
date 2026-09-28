@@ -267,6 +267,22 @@ class RiskCardData:
             ai_summary=risk.ai_summary,
         )
 
+    def to_dict(self) -> dict:
+        """Serializa o card (incluindo helpers visuais) para JSON."""
+        return {
+            "condition": self.condition,
+            "category": self.category,
+            "risk_level_id": self.risk_level_id,
+            "risk_display": self.risk_display,
+            "description": self.description,
+            "recommendations": list(self.recommendations),
+            "ai_summary": self.ai_summary,
+            "risk_color": risk_color(self.risk_level_id),
+            "risk_badge_color": risk_badge_color(self.risk_level_id),
+            "risk_icon": risk_icon(self.risk_level_id),
+            "risk_short_description": risk_short_description(self.risk_level_id),
+        }
+
 
 # ---------------------------------------------------------------------------
 # Classificador central

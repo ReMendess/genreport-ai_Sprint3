@@ -36,6 +36,17 @@ class Finding:
     description: str
     recommendations: list[str] = field(default_factory=list)
 
+    def to_dict(self) -> dict:
+        """Serializa o achado para JSON (API / React Native)."""
+        return {
+            "condition": self.condition,
+            "risk_level": self.risk_level,
+            "risk_class": self.risk_class,
+            "category": self.category,
+            "description": self.description,
+            "recommendations": list(self.recommendations),
+        }
+
 
 @dataclass
 class ParsedReport:
@@ -46,6 +57,23 @@ class ParsedReport:
     exam_date: Optional[str] = None
     findings: list[Finding] = field(default_factory=list)
     ancestry: list[dict] = field(default_factory=list)
+
+    def to_dict(self) -> dict:
+        """Serializa o relatório completo para JSON (API / React Native)."""
+        return {
+            "patient_name": self.patient_name,
+            "age": self.age,
+            "exam_date": self.exam_date,
+            "summary": {
+                "increased": self.high_risk_count,
+                "moderate": self.moderate_risk_count,
+                "no_relevant_change": self.no_relevant_change_count,
+                "total": len(self.findings),
+            },
+            "findings": [f.to_dict() for f in self.findings],
+            "ancestry": list(self.ancestry),
+            "has_ancestry": self.has_ancestry,
+        }
 
     @property
     def has_ancestry(self) -> bool:
