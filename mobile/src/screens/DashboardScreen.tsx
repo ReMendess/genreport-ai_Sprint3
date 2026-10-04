@@ -9,6 +9,8 @@ import {
   View,
 } from 'react-native';
 
+import { LinearGradient } from 'expo-linear-gradient';
+
 import Banner from '../components/Banner';
 import RiskCard from '../components/RiskCard';
 import { useApp } from '../context/AppContext';
@@ -90,13 +92,20 @@ export default function DashboardScreen() {
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={colors.blue} />
       }
     >
-      <View style={styles.hero}>
-        <Text style={styles.badge}>DASA · Genética Preventiva</Text>
+      <LinearGradient
+        colors={['#002855', '#003DA5', '#0066CC']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={styles.hero}
+      >
+        <View style={styles.badgePill}>
+          <Text style={styles.badge}>DASA · Genética Preventiva</Text>
+        </View>
         <Text style={styles.heroTitle}>Visão geral</Text>
         <Text style={styles.heroText}>
           Seus principais achados em linguagem clara e foco em prevenção.
         </Text>
-      </View>
+      </LinearGradient>
 
       {degraded && status ? (
         <>
@@ -119,9 +128,24 @@ export default function DashboardScreen() {
       {error ? <Banner tone="error" text={error} /> : null}
 
       <View style={styles.summaryRow}>
-        <SummaryCard value={summary.increased} label="Aumentados" tint="#B8860B" />
-        <SummaryCard value={summary.moderate} label="Moderados" tint="#2E86AB" />
-        <SummaryCard value={summary.no_relevant_change} label="Sem alteração" tint="#2E7D32" />
+        <SummaryCard
+          value={summary.increased}
+          label="Riscos aumentados"
+          hint="Predisposição genética elevada"
+          tint="#B8860B"
+        />
+        <SummaryCard
+          value={summary.moderate}
+          label="Riscos moderados"
+          hint="Acompanhamento preventivo"
+          tint="#2E86AB"
+        />
+        <SummaryCard
+          value={summary.no_relevant_change}
+          label="Sem alteração relevante"
+          hint="Resultado dentro do esperado"
+          tint="#2E7D32"
+        />
       </View>
 
       <Text style={styles.section}>Principais achados ({cards.length})</Text>
@@ -165,11 +189,22 @@ export default function DashboardScreen() {
   );
 }
 
-function SummaryCard({ value, label, tint }: { value: number; label: string; tint: string }) {
+function SummaryCard({
+  value,
+  label,
+  hint,
+  tint,
+}: {
+  value: number;
+  label: string;
+  hint: string;
+  tint: string;
+}) {
   return (
     <View style={[styles.summaryCard, { borderTopColor: tint }]}>
       <Text style={styles.summaryValue}>{value}</Text>
       <Text style={styles.summaryLabel}>{label}</Text>
+      <Text style={styles.summaryHint}>{hint}</Text>
     </View>
   );
 }
@@ -194,22 +229,30 @@ const styles = StyleSheet.create({
   },
   retryText: { color: colors.white, fontWeight: '700' },
   hero: {
-    backgroundColor: colors.blue,
     borderRadius: radius.lg,
-    padding: spacing(3),
+    paddingVertical: 28,
+    paddingHorizontal: 32,
     marginBottom: spacing(2),
     ...shadow,
   },
+  badgePill: {
+    alignSelf: 'flex-start',
+    backgroundColor: 'rgba(255,255,255,0.18)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.35)',
+    borderRadius: 999,
+    paddingVertical: 4,
+    paddingHorizontal: 12,
+    marginBottom: 12,
+  },
   badge: {
     color: colors.white,
-    opacity: 0.9,
-    fontSize: 11,
+    opacity: 0.95,
+    fontSize: 12,
     fontWeight: '700',
-    letterSpacing: 1,
-    marginBottom: spacing(0.5),
   },
-  heroTitle: { color: colors.white, fontSize: 22, fontWeight: '800' },
-  heroText: { color: colors.white, fontSize: 13.5, lineHeight: 19, marginTop: spacing(0.75), opacity: 0.95 },
+  heroTitle: { color: colors.white, fontSize: 28, fontWeight: '800', letterSpacing: -0.5 },
+  heroText: { color: colors.white, fontSize: 15, lineHeight: 22, marginTop: 10, opacity: 0.95 },
   reprocess: {
     backgroundColor: colors.blue,
     borderRadius: radius.md,
@@ -222,15 +265,31 @@ const styles = StyleSheet.create({
   summaryCard: {
     flex: 1,
     backgroundColor: colors.white,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: colors.border,
     borderRadius: radius.md,
     borderTopWidth: 4,
-    padding: spacing(1.5),
+    paddingVertical: 20,
+    paddingHorizontal: 10,
     alignItems: 'center',
+    marginBottom: 16,
     ...shadow,
   },
-  summaryValue: { fontSize: 26, fontWeight: '800', color: colors.blue },
-  summaryLabel: { fontSize: 11, color: colors.textSoft, marginTop: 2, textAlign: 'center' },
-  section: { fontSize: 17, fontWeight: '800', color: colors.blueDark, marginBottom: spacing(1.5) },
+  summaryValue: { fontSize: 34, fontWeight: '800', color: colors.blue, lineHeight: 38 },
+  summaryLabel: {
+    fontSize: 13,
+    fontWeight: '600',
+    color: '#1F3A5F',
+    marginTop: 4,
+    textAlign: 'center',
+  },
+  summaryHint: {
+    fontSize: 10.5,
+    color: '#7A8CA6',
+    marginTop: 2,
+    textAlign: 'center',
+  },
+  section: { fontSize: 19, fontWeight: '800', color: colors.blueDark, marginBottom: 16 },
   ancestryCard: {
     backgroundColor: colors.white,
     borderRadius: radius.lg,
@@ -240,22 +299,27 @@ const styles = StyleSheet.create({
   },
   ancestryBar: {
     flexDirection: 'row',
-    height: 24,
+    height: 28,
     borderRadius: 999,
     overflow: 'hidden',
-    marginBottom: spacing(1.5),
+    marginBottom: 20,
   },
   ancestryLegend: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing(2) },
-  legendItem: { alignItems: 'center', minWidth: 64 },
-  legendPct: { fontWeight: '800', color: colors.blue, fontSize: 15 },
-  legendOrigin: { fontSize: 11, color: colors.textSoft },
+  legendItem: { alignItems: 'center', minWidth: 70, paddingVertical: 4 },
+  legendPct: { fontWeight: '800', color: colors.blue, fontSize: 21 },
+  legendOrigin: { fontSize: 13, color: colors.textSoft, fontWeight: '500' },
   disclaimer: {
-    fontSize: 12,
-    lineHeight: 18,
-    color: colors.textSoft,
-    backgroundColor: colors.blueLight,
-    borderRadius: radius.md,
-    padding: spacing(1.5),
-    marginBottom: spacing(1),
+    fontSize: 14,
+    lineHeight: 21,
+    color: '#6B5B2E',
+    backgroundColor: '#FFF8E7',
+    borderWidth: 1,
+    borderColor: '#F0D9A8',
+    borderLeftWidth: 5,
+    borderLeftColor: '#B8860B',
+    borderRadius: 10,
+    paddingVertical: 13,
+    paddingHorizontal: 16,
+    marginBottom: 12,
   },
 });

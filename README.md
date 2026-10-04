@@ -1,462 +1,331 @@
 # AIReport Gen-Experience
 
 <p align="center">
-  <a href="https://www.fiap.com.br/"><img src="assets/logo-fiap.png" alt="FIAP" width="35%"></a>
+  <a href="https://www.fiap.com.br/"><img src="assets/logo-fiap.png" alt="FIAP" width="30%"></a>
 </p>
 
 <p align="center">
-  <strong>Enterprise Challenge · Sprint 3 · Dasa / Genera</strong>
+  <strong>Enterprise Challenge · Sprint 4 (fase final) · Dasa / Genera</strong><br>
+  RAG + LLM + App React Native + Governança de IA
 </p>
 
 ---
 
-# Enterprise Challenge - SPRINT 3 - DASA
+## Visão geral
 
-Solução de **conversação inteligente de relatórios genéticos da DASA** que transforma PDFs técnicos em uma experiência inteligente, conversacional, clara e visual — utilizando **RAG** (Retrieval-Augmented Generation), busca semântica e IA generativa via **Groq** (GPT-OSS 120B).
+O **AIReport Gen-Experience** transforma o relatório genético (PDF) em uma experiência
+conversacional clara, visual e segura — do PDF ao celular:
 
-### Link do vídeo: https://youtu.be/Bxk57Nue2yY
+```text
+React Native (Expo)  →  API REST (FastAPI)  →  RAG  →  ChromaDB  →  LLM (Groq)
+```
 
-## Índice
+O usuário conversa com o próprio relatório, vê cards de risco e ancestralidade em
+linguagem simples, com **guardrails**, **LGPD programática**, **logs auditáveis**,
+**avaliação de qualidade com evidências** e **operação monitorada** (status/métricas).
 
-- [Autor](#autor)
-- [Sobre o projeto](#sobre-o-projeto)
-- [Problema de negócio](#problema-de-negócio)
-- [Solução](#Solução)
-- [Como funciona](#como-funciona)
-- [Arquitetura](#arquitetura)
-- [Tecnologias](#tecnologias)
-- [Estrutura do repositório](#estrutura-do-repositório)
-- [Pré-requisitos](#pré-requisitos)
-- [Instalação e execução](#instalação-e-execução)
-- [Interface web (Streamlit)](#interface-web-streamlit)
-- [Modo terminal (CLI)](#modo-terminal-cli)
-- [Governança e Privacidade](#governança-e-privacidade)
-- [Próximos Passos](#Próximos-Passos)
+> O assistente **não** emite diagnóstico, prescrição ou recomendações fora do
+> relatório, e não substitui consulta médica.
 
+### Status da Sprint 4 (fase final)
 
----
-
-## Autor
-
-**Enterprise Challenge — Sprint 3 — DASA**
-
-| Nome | RM | 
-|------------|-----|
-| <a href="https://www.linkedin.com/in/renanmendes26/">Renan de Oliveira Mendes | RM563145</a> |
+| Bloco de requisito | Situação | Evidência |
+|---|---|---|
+| Governança de IA (LGPD, explicabilidade, logging) | ✅ | `docs/politica_governanca_sprint4.md` · `logs/audit.log` |
+| Operação e automação (monitoramento, falhas) | ✅ | `/status`, `/metrics`, `scripts/monitor.py` |
+| Avaliação do modelo (qualidade, consistência) | ✅ | `docs/evidencia_evaluacion_sprint4.md` |
+| Validação das respostas (clareza, aderência, refusal) | ✅ | `app/validation/**` + 109 testes |
+| Deploy (app RN + fluxo ponta a ponta) | ✅ | `mobile/**` + bundle Android/Web + E2E 12/12 |
+| Refinamento final (consolidação, UX, performance) | ✅ | migração `langchain-chroma`, cards RN = web |
+| Documentação | ✅ | este README + `docs/**` + `mobile/README.md` |
 
 ---
 
-## Sobre o projeto
+## Evolução das 4 Sprints
 
-O **AIReport Gen-Experience** foi criado exclusivamente para o **Enterprise Challenge FIAP × Dasa**, especificamente para o produto da **Genera**: exames genéticos que entregam informações valiosas sobre predisposições, metabolismo, saúde e muito mais.
-
-O desafio central é que os relatórios genéticos costumam ser:
-
-- Extensos e apresentar uma **linguagem técnica**
-- Entregues em **PDF estático**, com pouca interatividade
-- Difíceis de compreender pelo **cliente** sem apoio profissional
-
-O **AIReport Gen-Experience** permite que o usuário **converse com o próprio relatório**: faça perguntas em linguagem natural e receba respostas baseadas apenas no conteúdo do documento, com tom muito acessível e focado em prevenção.
-
-Para essa terceira fase desenvolvemos uma interface visual limpa que resume o relatório por meio de cards e dashboards, facilitando ainda mais o entendimento do usuário e permitindo uma navegação mais precisa dentro de suas próprias caracteristicas genéticas.
-
-Indo além, mudamos a forma de processamento do LLM antigo, que antes rodava um modelo menor loca. Agora utilizamos uma API e comunicação sincrona com um modelo mais forte, permitindo melhor desempenho, tempo de resposta e mais próximo das melhores práticas de mercado.
-
-Por fim adicionamos um agente personalizado com memória, dessa forma o agente tem capacidade de se lembrar da conversa e conseguir explicar ainda melhor os pontos principais do relatório.
-
-<img src="assets/home_page.png" widht="150">
-
-### O que a aplicação faz hoje
-
-| Funcionalidade | Descrição |
-|----------------|-----------|
-| Leitura automática do PDF | Carrega o relatório de `data/raw/` sem upload manual |
-| Extração e limpeza de texto | PyMuPDF + normalização para indexação |
-| Base vetorial persistida | ChromaDB com cache — reindexa só se o PDF mudar |
-| Dashboard | Página principal com gráficos totalmente customizada de acordo com o relatório do usuário |
-| Chat inteligente | Perguntas e respostas com contexto recuperado (RAG) |
-| Interface Dasa | Streamlit com identidade visual azul e branco |
-| Guardrails de IA | Sem diagnóstico, sem prescrição, linguagem preventiva |
-
-### Relatório Simulado
-
-<img src="assets/relatorio_simulado.png" widht="150">
-
-### Processamento
-
-<img src="assets/ollama_running.png" widht="150">
-
-### Dashboard
-
-<img src="assets/cards.png" widht="150">
-
-### Resumo Dinâmico
-
-<img src="assets/resumo.png" widht="150">
-
-### Assistente
-
-<img src="assets/resposta_agente.png" widht="150">
-<img src="assets/fontes_Resposta.png" widht="150">
-
-### Assistente com Memória
-
-<img src="assets/modelo_memoria.png" widht="150">
-
----
-
-## Problema de negócio
-
-Os relatórios do Genera concentram dados sensíveis e relevantes, mas o formato atual gera conflitos:
-
-- **Paciente**: dificuldade de entender riscos e próximos passos
-- **Médico**: tempo extra para traduzir o relatório em linguagem acessível
-- **Dasa / Genera**: subutilização do valor percebido do exame
-
-O AIReport Gen-Experience aumenta a autonomia, clareza e engajamento, sem substituir o acompanhamento com o médico.
-
-### Personas
-
-| Persona | Necessidade |
-|---------|-------------|
-| **Paciente** | Entender resultados, riscos e hábitos de prevenção em linguagem simples |
-| **Médico** | Apoio rápido na comunicação e exploração do relatório |
-| **Dasa** | Diferencial de experiência e maior valor do produto Genera |
-
----
-
-## Solução
-
-### Oportunidade de Negócio
-
-O mercado de saúde está migrando para:
- - medicina personalizada; 
- - prevenção; 
- - experiência digital; 
- - IA assistiva; 
- - saúde orientada por dados. 
-
-O Genera possui enorme potencial de diferenciação ao transformar:
-relatórios estáticos
-em:
-**experiências conversacionais inteligentes.**
-
-
-### Valor Gerado para a Dasa
-
-| Área |Valor |
-|----------------|-----------|
-|Experiência do paciente | maior entendimento |
-|Engajamento | aumento do uso do exame |
-|Diferenciação competitiva| inovação digital |
-|Escalabilidade | redução de suporte interpretativo |
-|Fidelização | maior percepção de valor |
-|Saúde preventiva	 | incentivo a hábitos saudáveis |
-________________________________________
-### Valor Gerado para Pacientes
-
-|Benefício	| Impacto |
-|----------------|-----------|
-|Linguagem simples | acessibilidade |
-|Interação conversacional |	autonomia |
-|Explicabilidade	 | confiança |
-| Respostas contextualizadas | personalização |
-| Foco preventivo	| conscientização |
-________________________________________
-
-### Diferenciais Técnicos da Solução
-
-| Diferencial | Impacto |
-|----------------|-----------|
-|RAG | redução de alucinação |
-|Groq (GPT-OSS 120B) | respostas rápidas e gratuitas |
-|Busca semântica | maior precisão |
-|ChromaDB | escalabilidade |
-|Engenharia de prompts | controle comportamental |
-|Explicabilidade | rastreabilidade |
-
-
----
-
-## Como funciona
-
-O fluxo segue uma arquitetura **RAG** em quatro etapas:
-
-1. **Ingestão** — O PDF em `data/raw/genetic_report.pdf` (ou o primeiro `.pdf` da pasta) é lido automaticamente.
-2. **Processamento** — Texto extraído (PyMuPDF), limpo e dividido em trechos (*chunks*).
-3. **Indexação** — Embeddings (`sentence-transformers/all-MiniLM-L6-v2`) armazenados no ChromaDB em `data/vectordb/`.
-4. **Consulta** — A pergunta do usuário recupera os trechos mais relevantes; o modelo **GPT-OSS 120B** (Groq) gera a resposta usando apenas esse contexto.
-
-
-Na primeira execução, a indexação pode levar alguns minutos. Nas seguintes, o sistema reutiliza o cache vetorial enquanto o arquivo PDF não for alterado.
-
-### Exemplos de perguntas
-
-- *Quais são meus principais riscos genéticos?*
-- *O que significa predisposição aumentada para diabetes tipo 2?*
-- *Quais hábitos de prevenção são recomendados com base no meu relatório?*
+| Sprint | Foco | Entregas |
+|---|---|---|
+| **2** | RAG conversacional | Ingestão do PDF (PyMuPDF), limpeza, embeddings (FastEmbed), ChromaDB, busca semântica, LLM via Groq, agente com memória, guardrails de prompt |
+| **3** | Experiência visual | Dashboard, cards de risco, ancestralidade, linguagem simplificada (NLP), resumos automáticos, contexto de sessão, tom não alarmista, disclaimers |
+| **4** | Produção e governança | API REST (8 endpoints), logging estruturado + auditoria (`trace_id`), LGPD (consentimento/retenção/expurgo), validações programáticas (injeção/off-topic/groundedness/refusal), harness de avaliação com evidências, operação (`/status`, `/metrics`, monitor), **app React Native (Expo)**, CORS e integração ponta a ponta |
 
 ---
 
 ## Arquitetura
 
-```mermaid
-flowchart TB
-    subgraph Entrada
-        PDF["PDF em data/raw/"]
-    end
+```text
+┌──────────────────────────────┐
+│  App React Native (Expo)     │  mobile/
+│  Consentimento · Painel ·    │
+│  Chat · Status               │
+└──────────────┬───────────────┘
+               │ HTTP/JSON (CORS)
+┌──────────────▼───────────────┐
+│  API REST (FastAPI)          │  api/
+│  /health /status /report     │
+│  /chat /reprocess /consent   │
+│  /metrics                    │
+└──────────────┬───────────────┘
+               │ reutiliza app/ (sem reescrever o RAG)
+┌──────────────▼───────────────┐
+│  Rag Engine + Validações     │  app/rag_engine.py · app/validation/
+│  entrada · relevância ·      │
+│  política de saída ·         │
+│  groundedness                │
+└──────────────┬───────────────┘
+   ┌───────────┴───────────┐
+   ▼                       ▼
+┌─────────────────┐   ┌──────────────────┐
+│  ChromaDB       │   │  LLM (Groq)      │
+│  (langchain-    │   │  gpt-oss-120b    │
+│   chroma)       │   │  temperatura 0.2 │
+└─────────────────┘   └──────────────────┘
 
-    subgraph Processamento
-        EXT["Extração (PyMuPDF)"]
-        CLN["Limpeza de texto"]
-        CHK["Chunking"]
-        EMB["Embeddings (MiniLM)"]
-        VDB[("ChromaDB\n data/vectordb")]
-    end
-
-    subgraph Consulta
-        USR["Pergunta do usuário"]
-        RET["Busca semântica (top-k)"]
-        LLM["Groq · GPT-OSS 120B"]
-        RSP["Resposta + fontes"]
-    end
-
-    subgraph Interface
-        ST["Streamlit"]
-    end
-
-    PDF --> EXT --> CLN --> CHK --> EMB --> VDB
-    USR --> ST --> RET
-    VDB --> RET --> LLM --> RSP --> ST
+Camadas transversais (Sprint 4):
+  Logging       → app/observability/logging_config.py (JSON + trace_id)
+  Monitoring    → /status · /metrics · scripts/monitor.py
+  Evaluation    → app/evaluation/harness.py + data/eval/questions.json
+  Validation    → app/validation/** (entrada, groundedness, output_policy)
+  Governance    → app/governance/** (consentimento, retenção, política)
+  Security      → sanitização de entrada, CORS configurável, segredos em .env
 ```
-
-
-### Pipeline de dados (PDF → resposta)
-
-```
-data/raw/genetic_report.pdf
-        ↓
-  Extração de texto (parser_pdf)
-        ↓
-  Limpeza e normalização (text_cleaner)
-        ↓
-  Divisão em chunks + embeddings (vector_store)
-        ↓
-  Persistência ChromaDB (cache em data/vectordb)
-        ↓
-  Pergunta → similarity_search → prompt (prompt_engineering)
-        ↓
-  LLM Groq (openai/gpt-oss-120b) → resposta contextualizada
-```
-
 ---
+
+## Funcionalidades
+
+| Funcionalidade | Descrição |
+|---|---|
+| Leitura automática do PDF | Carrega `data/raw/*.pdf` sem upload manual (PyMuPDF + pdfplumber) |
+| Base vetorial com cache | ChromaDB persistido; reindexa só se o PDF mudar (fingerprint) |
+| Dashboard | Resumo (3 cards com dica), cards de risco ordenados por severidade, ancestralidade |
+| Chat RAG | Perguntas em linguagem natural, respostas só com o contexto recuperado, **fontes exibidas** |
+| Resumo automático por card | LLM gera resumo fundamentado no trecho do relatório |
+| Validações programáticas | Bloqueio de injeção de prompt, off-topic e respostas sem fundamento (`refused` + motivo) |
+| Groundedness | Score de fundamentação por resposta (exibido no app e no `/metrics`) |
+| Governança LGPD | Consentimento (art. 8º), retenção de logs configurável, expurgo, política viva |
+| Auditoria | `logs/audit.log` com metadados (nunca conteúdo do usuário) e `trace_id` por requisição |
+| Operação | `/status` (PDF/índice/consentimento), `/metrics` (latências p95, recusas), monitor CLI |
+| Avaliação do modelo | Set dourado de 18 perguntas + métricas + evidências versionadas |
+| App móvel | Expo (Android/iOS/Web): consentimento → painel → chat → status |
 
 ## Tecnologias
 
 | Camada | Tecnologia |
-|--------|------------|
-| Interface | [Streamlit](https://streamlit.io/) |
-| Orquestração IA | [LangChain](https://www.langchain.com/) |
-| LLM | [Groq](https://groq.com/) + modelo `openai/gpt-oss-120b` |
-| Embeddings | `sentence-transformers/all-MiniLM-L6-v2` |
-| Vetorização | [ChromaDB](https://www.trychroma.com/) |
-| PDF | [PyMuPDF](https://pymupdf.readthedocs.io/) (`fitz`) |
-| Linguagem | Python 3.10+ |
-
----
+|---|---|
+| App móvel | React Native (Expo SDK 51) + TypeScript + React Navigation |
+| API | FastAPI + Uvicorn (CORS configurável) |
+| Orquestração IA | LangChain |
+| LLM | Groq — `openai/gpt-oss-120b` (temperatura 0.2) |
+| Embeddings | `sentence-transformers/all-MiniLM-L6-v2` (FastEmbed) |
+| Banco vetorial | ChromaDB (via `langchain-chroma`) |
+| PDF | PyMuPDF (`fitz`) + pdfplumber |
+| Interface web (legada) | Streamlit |
+| Linguagem | Python 3.10+ (validado em 3.13) · Node 18+ |
 
 ## Estrutura do repositório
 
-```
-genreport-ai-streamlit/
-├── streamlit_app.py          # Aplicação web principal
-├── app/
-│   ├── config.py             # Caminhos e constantes (Dasa, data/)
-│   ├── parser_pdf.py         # Extração de texto do PDF
-│   ├── text_cleaner.py       # Normalização do texto
-│   ├── embeddings.py         # Modelo de embeddings (cache)
-│   ├── vector_store.py       # ChromaDB: criar ou reutilizar índice
-│   ├── report_pipeline.py    # Carregamento automático do relatório
-│   ├── rag_engine.py         # Busca + geração com Groq
-│   ├── prompt_engineering.py # System prompt e guardrails
-│   ├── ui.py                 # Estilos e componentes visuais Dasa
-│   └── main.py               # Modo CLI (terminal)
+```text
+genreport-ai_Sprint3/
+├── api/                      # API REST (FastAPI)
+│   ├── main.py               # app + CORS + logging
+│   ├── middleware.py         # trace_id + log de requisições
+│   ├── schemas.py            # contratos (Pydantic)
+│   └── routers/              # chat, report, consent, ops
+├── app/                      # núcleo Python (reutilizado pela API e Streamlit)
+│   ├── rag_engine.py         # RAG + validações
+│   ├── validation/           # entrada, relevância, groundedness, política, refusals
+│   ├── governance/           # política LGPD, consentimento, retenção/expurgo
+│   ├── observability/        # logging JSON, auditoria, métricas
+│   ├── evaluation/           # harness da avaliação
+│   ├── prompt_engineering.py # prompts + guardrails
+│   ├── risk_classifier.py / risk_card.py / report_parser.py / dashboard.py / ui.py
+│   └── ...                   # parser_pdf, text_cleaner, embeddings, vector_store, summarizer, nlp_simplifier
+├── mobile/                   # App React Native (Expo) — ver mobile/README.md
+├── scripts/
+│   ├── eval_run.py           # avaliação do modelo → docs/evidencia_*.md
+│   └── monitor.py            # saúde do pipeline (exit 0/1)
 ├── data/
-│   ├── raw/                  # Coloque o PDF do relatório aqui
-│   └── vectordb/             # Cache do índice vetorial (gerado)
-├── .streamlit/
-│   └── config.toml           # Tema azul/branco Dasa
-├── requirements.txt
-├── assets
-├── relatorio_governaca_riscos.pdf
-└── README.md
-
+│   ├── raw/                  # PDF do relatório (fora do git — dado pessoal)
+│   ├── vectordb/             # índice persistido (fora do git)
+│   ├── eval/questions.json   # set dourado (sem PII)
+│   └── consent.json          # consentimento (fora do git)
+├── docs/
+│   ├── politica_governanca_sprint4.md
+│   ├── evidencia_evaluacion_sprint4.md
+│   └── evidencia_iteracao1.md
+├── logs/                     # app.log + audit.log (fora do git)
+├── tests/                    # 109 testes (unittest)
+├── streamlit_app.py          # interface web legada
+├── requirements.txt          # versões fixadas
+└── .env.example / .env
 ```
-
----
 
 ## Pré-requisitos
 
-1. **Python 3.10** (recomendado — é a versão usada pelo `streamlit` no ambiente típico do projeto)
-2. **Chave de API Groq** (gratuita em [console.groq.com](https://console.groq.com/))
-3. Configure a chave no arquivo `.env`:
+1. **Python 3.10+** (validado em 3.13) e **Node.js 18+** (para o app).
+2. **Chave Groq** gratuita em [console.groq.com](https://console.groq.com/).
+3. Relatório genético em `data/raw/genetic_report.pdf` (o projeto usa um simulado).
+
+Crie o `.env` na raiz:
 
 ```bash
 GROQ_API_KEY=gsk_sua_chave_aqui
 GROQ_MODEL=openai/gpt-oss-120b
+CORS_ALLOW_ORIGINS=*
 ```
 
-4. Relatório genético em PDF na pasta `data/raw/`
+## Como rodar
 
-> **Dica:** Use sempre o mesmo interpretador Python para instalar dependências e rodar o app (`py -3.10 -m pip` e `py -3.10 -m streamlit`).
-
----
-
-## Instalação e execução
-
-### 1. Clone o repositório e entre na pasta
+### 1) Backend + API REST (porta 8010)
 
 ```bash
-cd genreport-ai-streamlit
+python -m venv .venv
+# Windows: .venv\Scripts\activate   |  Linux/macOS: source .venv/bin/activate
+python -m pip install -r requirements.txt
+
+python -m uvicorn api.main:app --host 127.0.0.1 --port 8010
+# Documentação interativa: http://127.0.0.1:8010/docs
 ```
 
-### 2. Crie um ambiente virtual (opcional)
+> Para o celular acessar, suba com `--host 0.0.0.0` e use o IP da LAN.
+
+### 2) Interface web (Streamlit — legada, portas 8501)
 
 ```bash
-py -3.10 -m venv .venv
-.venv\Scripts\activate        # Windows
-# source .venv/bin/activate   # Linux/macOS
+python -m streamlit run streamlit_app.py
 ```
 
-### 3. Instale as dependências
+### 3) App mobile (Expo)
 
 ```bash
-py -3.10 -m pip install -r requirements.txt
+cd mobile
+npm install
+npm run android        # emulador Android (usa 10.0.2.2:8010 automaticamente)
+npm run web            # navegador em http://localhost:1921
+# Celular (Expo Go): informe o IP da sua máquina
+#   EXPO_PUBLIC_BASE_URL=http://192.168.0.10:8010 npm start
 ```
 
-### 4. Adicione o relatório PDF
+Detalhes em [`mobile/README.md`](mobile/README.md).
+---
 
-Coloque o arquivo em:
+## Como testar
 
-```
-data/raw/genetic_report.pdf
-```
-
-Ou qualquer outro `.pdf` em `data/raw/` (o sistema usa o primeiro encontrado se `genetic_report.pdf` não existir).
-
-### 5. Configure a chave da Groq
-
-Crie um arquivo `.env` na raiz do projeto com sua chave da API Groq (obtida gratuitamente em [console.groq.com](https://console.groq.com/)):
+### Suíte automatizada (109 testes)
 
 ```bash
-GROQ_API_KEY=gsk_sua_chave_aqui
-GROQ_MODEL=openai/gpt-oss-120b
+python -m unittest discover -s tests -v
 ```
 
-### 6. Execute a aplicação web
+| Módulo | Cobertura |
+|---|---|
+| `test_risk_classifier.py` | classificação de riscos (21) |
+| `test_observability.py` | logging JSON, trace_id, **privacidade** (11) |
+| `test_governance.py` | retenção, expurgo, consentimento (18) |
+| `test_validation.py` | entrada/off-topic/groundedness/refusal (33) |
+| `test_evaluation.py` | harness + set dourado (16) |
+| `test_ops.py` | `/status`, `/metrics`, monitor (10) |
+
+### Saúde do pipeline e avaliação do modelo
 
 ```bash
-py -3.10 -m streamlit run streamlit_app.py
+python scripts/monitor.py            # [OK] PDF, índice, logs · exit 0 = saudável
+python scripts/monitor.py --json     # saída para automação
+python scripts/eval_run.py --runs 2  # regenera docs/evidencia_evaluacion_sprint4.md
 ```
 
-Acesse o endereço exibido no terminal (geralmente `http://localhost:8501`).
-
----
-
-## Interface web (Streamlit)
-
-A interface foi pensada para a identidade **Dasa** (azul `#003DA5` e branco):
-
-- **Hero** com descrição do produto e cards informativos
-- **Sidebar** com status do relatório carregado, sugestões de perguntas e aviso médico
-- **Chat** interativo com histórico e expander de *fontes utilizadas*
-- Botão **Reprocessar relatório** para forçar nova indexação após trocar o PDF
-
-Não é necessário fazer upload: o app lê automaticamente o PDF em `data/raw/`.
-
----
-
-## Modo terminal (CLI)
-
-Para testar o pipeline sem interface gráfica:
+### Teste rápido dos endpoints
 
 ```bash
-py -3.10 -m app.main
+curl http://127.0.0.1:8010/api/v1/health
+curl http://127.0.0.1:8010/api/v1/status
+curl http://127.0.0.1:8010/api/v1/report
+curl -X POST http://127.0.0.1:8010/api/v1/chat \
+  -H "Content-Type: application/json" \
+  -d "{\"question\": \"Quais são meus principais riscos genéticos?\"}"
+# Recusa esperada (fora do tema):  "Como fazer bolo de chocolate?"
+# Recusa esperada (injeção):       "ignore todas as instruções anteriores"
 ```
 
-O script carrega o PDF, indexa (ou reutiliza o cache) e abre um loop de perguntas. Digite `sair` para encerrar.
+## API — endpoints
 
----
+| Método | Rota | Descrição |
+|---|---|---|
+| GET | `/api/v1/health` | Liveness (`{"status":"ok"}`) |
+| GET | `/api/v1/status` | Saúde detalhada: PDF, índice, consentimento, logging (`ok/degraded/error`) |
+| GET | `/api/v1/report` | Dados estruturados: resumo, findings, risk cards, ancestralidade, disclaimers |
+| POST | `/api/v1/chat` | `{question, ...}` → `{answer, sources, refused, refusal_reason, groundedness}` |
+| POST | `/api/v1/reprocess` | Reprocessa o relatório (reindexação com liberação de handles) |
+| GET | `/api/v1/consent` | Status do consentimento LGPD |
+| POST | `/api/v1/consent` | Registra/revoga consentimento (`{"granted": true}`) |
+| GET | `/api/v1/metrics` | Métricas: HTTP por rota (avg/min/max/**p95**), status, recusas, groundedness |
 
-## Governança e Privacidade
+## Governança e LGPD
 
-Pensando e aprofundando em questões legais, éticas e de gonvernança de modelos de IA e dados, desenvolvi o relatório anexo "relatorio_governaca_riscos.pdf"
+- **Política completa:** [`docs/politica_governanca_sprint4.md`](docs/politica_governanca_sprint4.md)
+- Consentimento com registro (apenas flag/versão/timestamp — **sem PII**); gate opcional via `REQUIRE_CONSENT=true`.
+- **Retenção:** `LOG_RETENTION_DAYS` (padrão 30) com expurgo na inicialização e via `python -m app.governance.policy`.
+- **Logs:** JSON com `trace_id`; **nunca** registram pergunta/resposta/paciente (guard ativo + teste automatizado).
+- PDF com PII **fora do git** (`data/raw/*.pdf` ignorado; histórico pendente de purga — procedimento documentado na §9 da política).
 
-Por onde passo e especifico todos os pontos pensados, aplicados e planejados da solução, voltados a atender esses aspectos essenciais de análise de riscos.
+## Avaliação do modelo (evidências)
 
-De forma resumida nessa etapa apliquei a seguinte abordagem:
+- **Resultado final:** **APROVADO** — aderência **1.0** (18/18), consistência **1.0**, groundedness média **0.571**, **0 violações** de política.
+- Documentos: [`docs/evidencia_evaluacion_sprint4.md`](docs/evidencia_evaluacion_sprint4.md) e iteração registrada em [`docs/evidencia_iteracao1.md`](docs/evidencia_iteracao1.md).
 
-| Aspecto | Abordagem |
-|---------|-----------|
-| Dados genéticos | Altamente sensíveis — uso apenas local no protótipo |
-| Armazenamento | PDF em `data/raw/`; índice em `data/vectordb/` (ambiente local) |
-| Guardrails da IA | Sem diagnóstico, sem prescrição, apenas contexto do relatório |
-| Responsabilidade | Aviso na interface: não substitui consulta médica |
+## Operação e monitoramento
 
-O *system prompt* em `app/prompt_engineering.py` reforça linguagem simples, tom não alarmista e ênfase em prevenção e acompanhamento profissional.
+- `/status` alimenta o app (banner degradado + botão de reprocessar).
+- `/metrics` expõe latências p95 por rota, códigos HTTP, turnos de chat, recusas por motivo e groundedness médio.
+- `scripts/monitor.py` é o health-check para cron/CI (exit code 0/1).
+- Auditoria em `logs/audit.log` (eventos `chat_turn`, `report_access`, `reprocess`, `consent_update`).
 
----
+## Deploy
 
-## Próximos Passos
+**Demonstração local (recomendado para a banca):**
 
-Além do que já foi desenvolvido, atualmente estudo formas de expandir e melhorar a solução.
+```bash
+# Terminal 1 — API acessível na rede
+python -m uvicorn api.main:app --host 0.0.0.0 --port 8010
+# Terminal 2 — App
+cd mobile && npm run android     # ou npm run web / Expo Go com EXPO_PUBLIC_BASE_URL
+```
 
-Considerações e planejamento:
+**Limitações declaradas:** a solução mantém o processamento **local** (ChromaDB + embeddings no disco),
+por decisão de privacidade do dado genético. Para produção seriam necessários: HTTPS, autenticação,
+DPA com o provedor do LLM e política de retenção de dados — ver §7 e §10 da política de governança.
 
-- [ ] Resumo automático dos principais riscos na abertura do app
-- [ ] Suporte a múltiplos relatórios / perfis de paciente
-- [ ] Dashboards genéticos; 
-- [ ] Integração nativa com plataforma Genera;
-- [ ] Correlação entre achados genéticos;
-- [ ] Memória Conversacional;
-- [ ] Sistema de Recomendação Personalizado
-- [ ] Deploy em ambiente seguro com HTTPS e políticas de retenção de dados;
-- [ ] Priorização de riscos;
-- [ ] Avaliação com usuários reais (pacientes e médicos);
-- [ ] Métricas de qualidade das respostas (RAG evaluation);
-- [ ] Integração opcional com APIs cloud (OpenAI);
-- [ ] Arquitetura Empresarial
-- [ ] Segurança Avançada
-
- Dessa forma a solução se torna completa, implementada ao ambiente corporativo, de forma segura e visual.
-
-
- O maior diferencial não será apenas:
-
-"conversar com o PDF"
-
-mas sim:
-
-**transformar dados genéticos complexos em inteligência preventiva personalizada.**
-
----
-
-## User stories atendidas
+## User stories
 
 | ID | História | Status |
 |----|----------|--------|
-| US1 | Como paciente, quero entender meu exame em linguagem simples | Parcial — via chat contextualizado |
-| US2 | Como paciente, quero fazer perguntas sobre meu exame | Implementado |
-| US3 | Como paciente, quero visualizar um resumo dos principais riscos | Planejado |
+| US1 | Entender o exame em linguagem simples | ✅ chat + resumos + linguagem simplificada |
+| US2 | Fazer perguntas sobre meu exame | ✅ chat RAG com fontes |
+| US3 | Ver resumo dos principais riscos | ✅ dashboard com cards priorizados |
+| US4 | Usar no celular | ✅ app React Native (Expo) |
+| US5 | Confiar no uso dos meus dados | ✅ consentimento, política, auditoria e recusas |
 
----
+## Vídeo
 
-## Licença e contexto acadêmico
+- Sprint 3: https://youtu.be/Bxk57Nue2yY
+- **Sprint 4 (fase final):** _link a ser adicionado após a gravação_
 
-Projeto desenvolvido para fins educacionais no **Enterprise Challenge FIAP**, em parceria com a **Dasa**. O uso de dados genéticos reais deve seguir políticas de privacidade, LGPD e orientação institucional da Dasa.
+## Limitações conhecidas
+
+- Métricas de avaliação são **lexicais** (sem LLM-juiz) e cobrem **um** relatório de referência.
+- O gate de relevância é heurístico (pode exigir ajuste para novos vocabulários).
+- Aviso de `langchain-community` (sunset) permanece no import de `FastEmbedEmbeddings` — não há pacote standalone equivalente.
+- App validado por typecheck + bundles Android/Web + contrato de API; a demo em dispositivo deve ser gravada com emulador/celular.
+
+## Autor
+
+| Nome | RM |
+|---|---|
+| [Renan de Oliveira Mendes](https://www.linkedin.com/in/renanmendes26/) | RM563145 |
 
 ---
 
 <p align="center">
-  <strong>AIReport Gen-Experience</strong> — Transformando relatórios genéticos em clareza, prevenção e autonomia.
+  <strong>AIReport Gen-Experience</strong> — transformando dados genéticos complexos<br>
+  em inteligência preventiva personalizada.
 </p>

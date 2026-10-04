@@ -1,7 +1,7 @@
 import shutil
 from pathlib import Path
 
-from langchain_community.vectorstores import Chroma
+from langchain_chroma import Chroma
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 from app.config import EMBED_MODEL, VECTORDB_DIR

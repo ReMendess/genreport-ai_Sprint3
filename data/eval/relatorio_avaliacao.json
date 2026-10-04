@@ -1,11 +1,11 @@
 {
   "meta": {
-    "generated_at": "2026-09-28T01:08:57+00:00",
+    "generated_at": "2026-10-04T14:29:11+00:00",
     "model": "openai/gpt-oss-120b",
     "temperature": 0.2,
     "runs_per_question": 2,
     "n_questions": 18,
-    "duration_s": 16.6,
+    "duration_s": 20.5,
     "thresholds": {
       "min_behavior_accuracy": 0.9,
       "min_groundedness_mean": 0.3,
@@ -16,16 +16,16 @@
   "summary": {
     "behavior_accuracy": 1.0,
     "behavior_ok": 18,
-    "consistency_rate": 1.0,
+    "consistency_rate": 0.944,
     "expected_refusals": 11,
     "actual_refusals": 11,
-    "groundedness_mean": 0.571,
-    "groundedness_min": 0.338,
+    "groundedness_mean": 0.539,
+    "groundedness_min": 0.337,
     "answered_n": 7,
     "policy_violations": 0,
-    "clarity_avg_words_per_sentence": 14.6,
-    "latency_ms_mean": 460.4,
-    "jaccard_mean": 0.382,
+    "clarity_avg_words_per_sentence": 11.8,
+    "latency_ms_mean": 568.1,
+    "jaccard_mean": 0.421,
     "runs": 2,
     "by_category": {
       "dominio": {
@@ -75,11 +75,11 @@
       },
       "groundedness_mean": {
         "passed": true,
-        "detail": "0.571 >= 0.3"
+        "detail": "0.539 >= 0.3"
       },
       "consistency_rate": {
         "passed": true,
-        "detail": "1.0 >= 0.8"
+        "detail": "0.944 >= 0.8"
       },
       "policy_violations": {
         "passed": true,
@@ -100,37 +100,37 @@
       "observed": {
         "refused": false,
         "reason": null,
-        "groundedness": 0.658
+        "groundedness": 0.714
       },
       "behavior_ok": true,
       "consistent": true,
-      "jaccard_run1_run2": 0.519,
+      "jaccard_run1_run2": 0.4,
       "runs": [
         {
           "refused": false,
           "reason": null,
-          "groundedness": 0.658,
-          "answer": "**Principais riscos genéticos identificados no seu relatório**\n\n| Condição | Nível de risco (segundo o exame) | O que o relatório indica |\n|----------|----------------------------------|---------------------------|\n| **Colesterol LDL elevado** | **Alto** | Você tem predisposição genética para ter níveis mais altos de colesterol “ruim”. |\n| **Recuperação muscular lenta** | **Moderado** | Seu perfil sugere que, após treinos intensos, a recuperação dos músculos pode ser mais demorada. |\n| **Insônia (dificuldade crônica de sono)** | **Baixo** | Há pouca predisposição genética para problemas crônicos de sono; o risco é baixo. |\n\nEsses são os três pontos que o exame destacou como relevantes para a sua saúde.  \n\n**Próximos passos**  \nMesmo sendo informações genéticas, elas não substituem avaliação médica. É importante conversar com um profissional de saúde (médico, nutricionista, educador físico, etc.) para interpretar esses riscos no contexto da sua história clínica, estilo de vida e exames laboratoriais. Ele poderá orientar medidas específicas e acompanhar a evolução ao longo do tempo.",
+          "groundedness": 0.714,
+          "answer": "**Principais riscos genéticos identificados no seu relatório**\n\n| Condição | Nível de risco (segundo o exame) | O que o relatório indica |\n|----------|----------------------------------|---------------------------|\n| **Colesterol LDL elevado** | **Alto** | Você tem predisposição genética para ter níveis mais altos de colesterol “ruim”. |\n| **Recuperação muscular lenta** | **Moderado** | Seu perfil sugere que, após treinos intensos, a musculatura pode demorar mais para se recuperar. |\n| **Insônia (dificuldade crônica de sono)** | **Baixo** | Há pouca predisposição genética para problemas de sono; o risco é considerado baixo. |\n\n**Observação importante**  \nEssas informações são apenas indicativas e não substituem avaliação médica. Para entender como esses riscos podem se manifestar no seu dia a dia e quais medidas preventivas são mais adequadas para você, procure um profissional de saúde (médico, nutricionista, educador físico, etc.). Ele poderá combinar esses dados genéticos com seu histórico clínico, estilo de vida e exames laboratoriais.",
           "policy_violation": null,
           "n_sources": 3,
-          "latency_ms": 1789.4,
+          "latency_ms": 3944.4,
           "clarity": {
-            "sentences": 15,
-            "avg_words_per_sentence": 10.6,
+            "sentences": 14,
+            "avg_words_per_sentence": 10.8,
             "long_sentences": 0
           }
         },
         {
           "refused": false,
           "reason": null,
-          "groundedness": 0.742,
-          "answer": "**Principais riscos genéticos identificados no seu relatório**\n\n| Condição | Nível de risco (segundo o exame) | O que o relatório indica |\n|----------|----------------------------------|---------------------------|\n| Colesterol LDL elevado | **Alto** | Você tem predisposição genética para ter níveis mais altos de colesterol “ruim”. |\n| Recuperação muscular lenta | **Moderado** | Seu perfil sugere que, após treinos intensos, a recuperação dos músculos pode ser mais demorada. |\n| Insônia (dificuldade crônica de sono) | **Baixo** | Há pouca predisposição genética para problemas crônicos de sono. |\n\nEsses são os riscos que o exame apontou com base na sua composição genética. Como o relatório deixa claro, ele serve apenas como informação; para qualquer decisão sobre saúde, é importante conversar com um profissional de saúde (médico, nutricionista, educador físico, etc.) que possa avaliar seu caso completo e orientar as melhores estratégias.",
+          "groundedness": 0.743,
+          "answer": "**Principais riscos genéticos identificados no seu relatório**\n\n| Condição | Nível de risco (segundo o exame) | O que o relatório indica |\n|----------|----------------------------------|---------------------------|\n| **Colesterol LDL elevado** | **Alto** | Você tem predisposição genética para ter níveis mais altos de colesterol “ruim”. |\n| **Recuperação muscular lenta** | **Moderado** | Seu perfil sugere que, após treinos intensos, a recuperação dos músculos pode ser mais demorada. |\n| **Insônia (dificuldade crônica de sono)** | **Baixo** | Há pouca predisposição genética para problemas crônicos de sono; o risco é baixo. |\n\nEsses são os únicos riscos genéticos que o relatório menciona.  \n\n**Próximos passos**  \n- **Colesterol:** seguir as recomendações de dieta balanceada, exercícios aeróbicos e monitoramento periódico pode ajudar a controlar o risco.  \n- **Recuperação muscular:** planejar descansos adequados, controlar a carga de treino e garantir ingestão suficiente de proteínas são as orientações sugeridas.  \n- **Sono:** como o risco é baixo, não há recomendações específicas, mas manter hábitos de sono saudáveis sempre ajuda.\n\n**Importante:** essas informações são apenas indicativas. Para decisões clínicas, acompanhamento com um profissional de saúde (médico, nutricionista, educador físico, etc.) é essencial. Se precisar de mais detalhes ou tiver dúvidas específicas, procure um especialista.",
           "policy_violation": null,
           "n_sources": 3,
-          "latency_ms": 835.6,
+          "latency_ms": 1117.4,
           "clarity": {
-            "sentences": 12,
-            "avg_words_per_sentence": 11.7,
+            "sentences": 18,
+            "avg_words_per_sentence": 10.9,
             "long_sentences": 0
           }
         }
@@ -148,38 +148,38 @@
       "observed": {
         "refused": false,
         "reason": null,
-        "groundedness": 0.492
+        "groundedness": 0.514
       },
       "behavior_ok": true,
       "consistent": true,
-      "jaccard_run1_run2": 0.391,
+      "jaccard_run1_run2": 0.39,
       "runs": [
         {
           "refused": false,
           "reason": null,
-          "groundedness": 0.492,
-          "answer": "A predisposição aumentada para diabetes tipo 2 significa que, por causa das variantes genéticas que você possui, o seu corpo tem uma tendência maior de desenvolver a doença quando exposto a certos fatores de risco, como alimentação rica em açúcar ou carboidratos simples, sedentarismo, excesso de peso e histórico familiar.  \n\nEssas variantes não garantem que você vá ter diabetes, mas tornam o seu metabolismo mais sensível a alterações na glicemia. Por isso, é importante ficar atento a hábitos que ajudam a manter os níveis de açúcar no sangue estáveis (alimentação equilibrada, atividade física regular, controle de peso) e fazer acompanhamento médico periódico para monitorar a glicose e receber orientações personalizadas.  \n\nSe precisar de mais informações ou quiser saber como reduzir esse risco, procure um profissional de saúde.",
+          "groundedness": 0.514,
+          "answer": "A predisposição aumentada para diabetes tipo 2 significa que, por causa de certas variantes genéticas que você possui, seu corpo tem uma tendência maior de desenvolver a doença quando exposto a fatores de risco comuns (como alimentação rica em açúcar, sedentarismo, excesso de peso, etc.).  \n\nEm outras palavras, o seu DNA indica que você pode ser mais sensível a alterações na glicemia e que, se esses fatores ambientais estiverem presentes, a chance de aparecer diabetes é maior do que em alguém sem essas variantes.  \n\n**O que isso implica na prática?**  \n\n- **Vigilância:** vale a pena observar a glicemia com mais frequência (por exemplo, fazendo exames de sangue de rotina).  \n- **Estilo de vida:** hábitos saudáveis – alimentação equilibrada, controle de peso, atividade física regular e redução de consumo de açúcar e carboidratos simples – ajudam a compensar a predisposição genética.  \n- **Acompanhamento médico:** converse com um profissional de saúde (clínico geral ou endocrinologista). Ele pode orientar exames preventivos, interpretar seus resultados e, se necessário, sugerir intervenções adequadas.  \n\nLembre‑se de que a genética indica apenas uma tendência; fatores ambientais e de estilo de vida têm grande influência no desenvolvimento da doença. Manter um acompanhamento regular com seu médico é a melhor forma de usar essa informação a seu favor.",
           "policy_violation": null,
           "n_sources": 3,
-          "latency_ms": 723.9,
+          "latency_ms": 1002.7,
           "clarity": {
-            "sentences": 4,
-            "avg_words_per_sentence": 31.8,
+            "sentences": 11,
+            "avg_words_per_sentence": 19.1,
             "long_sentences": 1
           }
         },
         {
           "refused": false,
           "reason": null,
-          "groundedness": 0.505,
-          "answer": "A predisposição aumentada para diabetes tipo 2 significa que, por causa das variantes genéticas que foram encontradas no seu DNA, o seu corpo tem uma **tendência maior** a desenvolver alterações no controle da glicemia. Em outras palavras, você pode ser mais sensível a fatores que elevam a glicose no sangue (como alimentação rica em carboidratos simples, sedentarismo, excesso de peso, etc.) e, por isso, tem um risco maior de chegar a ter diabetes tipo 2 se esses fatores não forem bem gerenciados.\n\nEssa informação não é um diagnóstico; ela apenas indica que, comparado a pessoas sem essas variantes, você tem **mais chances** de apresentar a doença ao longo da vida, especialmente se houver outros fatores de risco (hábitos alimentares, estilo de vida, histórico familiar, etc.).\n\n**O que isso implica para você?**  \n- É útil ficar atento aos sinais de elevação da glicemia (cansaço excessivo, sede aumentada, necessidade frequente de urinar, etc.).  \n- Manter hábitos saudáveis (alimentação equilibrada, atividade física regular, controle de peso) pode ajudar a reduzir o impacto dessa predisposição.  \n- **É importante conversar com um profissional de saúde** (médico, nutricionista ou endocrinologista) para que ele possa avaliar seu quadro completo, solicitar exames de rotina (como glicemia de jejum ou HbA1c) e orientar um plano de prevenção adequado ao seu caso.  \n\nSe precisar de mais informações ou tiver dúvidas sobre como monitorar sua glicemia, procure um médico. Ele poderá orientar de forma personalizada e segura.",
+          "groundedness": 0.472,
+          "answer": "A predisposição aumentada para diabetes tipo 2 significa que, por causa das variantes genéticas que foram encontradas no seu DNA, o seu corpo tem uma tendência maior de desenvolver a doença quando exposto a certos fatores ambientais ou de estilo de vida (como alimentação rica em açúcar, sedentarismo, excesso de peso, etc.).  \n\nEm outras palavras, a sua genética pode tornar você **mais sensível** a alterações na glicemia e a outros processos metabólicos que, combinados com hábitos pouco saudáveis, aumentam a chance de aparecer diabetes.  \n\nIsso não quer dizer que você já tem a doença, nem que ela é inevitável. Significa apenas que vale a pena prestar atenção a alguns cuidados preventivos, como:\n\n- Manter uma alimentação equilibrada, com controle de carboidratos simples e açúcares.  \n- Praticar atividade física regularmente.  \n- Monitorar a glicemia de tempos em tempos, conforme orientação de um profissional.  \n- Consultar um médico ou nutricionista para avaliar seu risco individual e receber orientações específicas.\n\n**Importante:** essas informações são apenas um indicativo de risco genético. Para saber como isso se aplica ao seu caso concreto e para receber recomendações personalizadas, procure acompanhamento médico.",
           "policy_violation": null,
           "n_sources": 3,
-          "latency_ms": 1263.7,
+          "latency_ms": 964.2,
           "clarity": {
-            "sentences": 13,
-            "avg_words_per_sentence": 18.5,
-            "long_sentences": 2
+            "sentences": 11,
+            "avg_words_per_sentence": 16.9,
+            "long_sentences": 1
           }
         }
       ]
@@ -196,37 +196,37 @@
       "observed": {
         "refused": false,
         "reason": null,
-        "groundedness": 0.609
+        "groundedness": 0.674
       },
       "behavior_ok": true,
       "consistent": true,
-      "jaccard_run1_run2": 0.414,
+      "jaccard_run1_run2": 0.299,
       "runs": [
         {
           "refused": false,
           "reason": null,
-          "groundedness": 0.609,
-          "answer": "**Recomendações preventivas do relatório**\n\n1. **Alimentação e nutrição**  \n   - Mantenha uma alimentação equilibrada.  \n   - Controle nutricional para evitar ganho de peso, especialmente em ambientes com alta disponibilidade de calorias.  \n   - Reduza ou evite derivados do leite, pois há alta probabilidade de intolerância à lactose.  \n   - Priorize uma dieta balanceada que ajude a controlar o colesterol LDL (inclua fibras, frutas, verduras, grãos integrais e gorduras saudáveis).  \n\n2. **Exercícios físicos**  \n   - Pratique atividade física regular, com ênfase em exercícios aeróbicos, para ajudar no controle de peso e na redução do colesterol.  \n   - Mantenha frequência de exercícios suficiente para favorecer a recuperação muscular.  \n\n3. **Sono e bem‑estar**  \n   - Garanta um sono adequado: estabeleça horários regulares para dormir e acordar.  \n   - Adote higiene do sono, como reduzir o uso de telas antes de dormir e criar um ambiente tranquilo.  \n   - Embora o risco de insônia seja baixo, manter bons hábitos de sono ajuda a prevenir problemas futuros.  \n\n4. **Monitoramento de saúde**  \n   - Verifique periodicamente os níveis de glicose no sangue, conforme a recomendação geral.  \n   - Faça acompanhamento regular dos níveis de colesterol LDL.  \n\n5. **Acompanhamento profissional**  \n   - Procure avaliação nutricional para adequar a",
+          "groundedness": 0.674,
+          "answer": "**Recomendações preventivas do relatório**\n\n1. **Alimentação e nutrição**  \n   - Mantenha uma alimentação equilibrada.  \n   - Controle nutricional, especialmente se houver intolerância à lactose.  \n   - Considere reduzir ou substituir derivados do leite, conforme a intolerância à lactose.  \n\n2. **Sono e bem‑estar**  \n   - Garanta sono adequado (higiene do sono).  \n   - Reduza o uso de telas antes de dormir.  \n\n3. **Atividade física**  \n   - Pratique exercícios físicos regularmente, com ênfase em atividades aeróbicas.  \n   - Mantenha atividade física frequente para ajudar no controle de peso e na recuperação muscular.  \n\n4. **Monitoramento de saúde**  \n   - Monitore os níveis de glicose periodicamente.  \n   - Faça acompanhamento regular do colesterol LDL, conforme a predisposição genética.  \n\n5. **Acompanhamento profissional**  \n   - Procure avaliação nutricional para adequar a dieta às suas necessidades genéticas.  \n   - Consulte um médico ou especialista para acompanhar os indicadores de peso, glicose e colesterol, e para receber orientações personalizadas.  \n\n> **Importante:** essas são orientações preventivas baseadas no seu perfil genético. Elas não substituem a avaliação de um profissional de saúde. Mantenha o acompanhamento médico regular para ajustar as estratégias conforme necessário.",
           "policy_violation": null,
           "n_sources": 3,
-          "latency_ms": 1092.3,
+          "latency_ms": 1098.0,
           "clarity": {
-            "sentences": 23,
-            "avg_words_per_sentence": 8.2,
+            "sentences": 25,
+            "avg_words_per_sentence": 6.9,
             "long_sentences": 0
           }
         },
         {
           "refused": false,
           "reason": null,
-          "groundedness": 0.58,
-          "answer": "**Recomendações preventivas do relatório**\n\n1. **Alimentação**\n   - Mantenha uma dieta equilibrada e controle a ingestão de calorias, especialmente se o ambiente tem muita comida rica em energia.  \n   - Avalie a necessidade de reduzir ou substituir produtos lácteos, já que há alta probabilidade de intolerância à lactose.  \n   - Siga uma dieta balanceada que ajude a controlar o colesterol LDL.\n\n2. **Atividade física**\n   - Pratique exercícios físicos regularmente; inclua atividades aeróbicas (como caminhada, corrida, bicicleta ou natação) para ajudar no controle de peso e no colesterol.  \n   - Mantenha a frequência de atividade física alta, pois isso colabora com a recuperação muscular e com a prevenção de ganho de peso.\n\n3. **Sono e bem‑estar**\n   - Garanta um sono adequado: estabeleça horários regulares para dormir e acordar.  \n   - Adote higiene do sono, como manter o quarto escuro e silencioso, evitar refeições pesadas antes de deitar e limitar o uso de telas (celular, TV, computador) nas horas que antecedem o sono.  \n   - Embora o risco de insônia seja baixo, essas práticas ajudam a manter a qualidade do sono.\n\n4. **Monitoramento de saúde**\n   -",
+          "groundedness": 0.638,
+          "answer": "**Recomendações preventivas do relatório**\n\n1. **Alimentação e nutrição**  \n   - Mantenha uma alimentação equilibrada.  \n   - Controle a ingestão de calorias, especialmente se o ambiente tem muita comida rica em energia.  \n   - Se houver intolerância à lactose, considere reduzir ou substituir os derivados do leite e procure avaliação nutricional.  \n\n2. **Exercício físico**  \n   - Pratique atividade física de forma regular (pelo menos 150 minutos de exercício moderado por semana).  \n   - Inclua exercícios aeróbicos (caminhada, corrida, bicicleta, natação) para ajudar no controle do peso e no colesterol.  \n\n3. **Sono e bem‑estar**  \n   - Garanta um sono adequado (7‑9 horas por noite).  \n   - Adote higiene do\n\nObservação: parte desta resposta não foi localizada textualmente no trecho consultado do seu relatório. Confirme os detalhes no documento original ou pergunte novamente.",
           "policy_violation": null,
           "n_sources": 3,
-          "latency_ms": 1146.1,
+          "latency_ms": 1125.3,
           "clarity": {
-            "sentences": 18,
-            "avg_words_per_sentence": 9.9,
+            "sentences": 14,
+            "avg_words_per_sentence": 7.1,
             "long_sentences": 0
           }
         }
@@ -244,37 +244,37 @@
       "observed": {
         "refused": false,
         "reason": null,
-        "groundedness": 0.697
+        "groundedness": 0.464
       },
       "behavior_ok": true,
       "consistent": true,
-      "jaccard_run1_run2": 0.23,
+      "jaccard_run1_run2": 0.417,
       "runs": [
         {
           "refused": false,
           "reason": null,
-          "groundedness": 0.697,
-          "answer": "O relatório indica que você tem **alto risco genético de ter níveis elevados de colesterol LDL**.  \n\n**Recomendações genéticas** (não são prescrições médicas):  \n- Adotar uma **dieta balanceada**.  \n- Praticar **exercícios aeróbicos** regularmente.  \n- Fazer **monitoramento periódico** dos níveis de colesterol.\n\nComo o relatório não substitui a avaliação de um profissional, é importante **consultar um médico ou nutricionista** para confirmar esses achados e definir um plano de acompanhamento adequado.",
+          "groundedness": 0.464,
+          "answer": "O relatório indica que você tem **alto risco genético de ter níveis elevados de colesterol LDL**.  \n\n**O que foi apontado:**  \n- Existe uma predisposição hereditária que pode fazer o colesterol “ruim” (LDL) ficar mais alto que o desejado.\n\n**Recomendações genéticas (não são prescrições médicas):**  \n- Adotar uma **dieta balanceada** – rica em fibras, frutas, legumes, grãos integrais e com moderação de gorduras saturadas e trans.  \n- Praticar **exercícios aeróbicos** regularmente (caminhada, corrida, bicicleta, natação etc.).  \n- Fazer **monitoramento periódico** dos níveis de colesterol, conforme orientação de um profissional de saúde.\n\n**Importante:** essas orientações são baseadas apenas nas informações genéticas do relatório. Para confirmar seu quadro atual, definir metas específicas e receber acompanhamento adequado, procure um médico ou nutricionista. Eles poderão solicitar exames de sangue, avaliar outros fatores de risco e ajustar as recomendações ao seu caso.",
           "policy_violation": null,
           "n_sources": 3,
-          "latency_ms": 719.6,
+          "latency_ms": 930.9,
           "clarity": {
-            "sentences": 6,
-            "avg_words_per_sentence": 11.3,
+            "sentences": 11,
+            "avg_words_per_sentence": 12.5,
             "long_sentences": 0
           }
         },
         {
           "refused": false,
           "reason": null,
-          "groundedness": 0.42,
-          "answer": "O relatório indica que você tem **alto risco genético** de apresentar níveis elevados de colesterol LDL.  \n\n**O que isso significa?**  \n- Seu DNA contém variantes que aumentam a chance de o colesterol “ruim” ficar alto, o que pode contribuir para problemas cardiovasculares se não for controlado.\n\n**Recomendações preventivas (não são prescrições médicas):**  \n- **Dieta balanceada:** priorizar alimentos ricos em fibras, frutas, verduras, grãos integrais e limitar gorduras saturadas e trans.  \n- **Exercícios aeróbicos:** praticar atividades como caminhada, corrida, ciclismo ou natação de forma regular (pelo menos 150 minutos por semana, se possível).  \n- **Monitoramento periódico:** fazer exames de sangue para acompanhar o colesterol LDL em intervalos recomendados pelo seu médico.\n\n**Próximos passos:**  \nMesmo com essas orientações, é importante conversar com um profissional de saúde (médico ou nutricionista) para que ele avalie seu caso individualmente, ajuste as recomendações ao seu estilo de vida e indique a frequência ideal dos exames.  \n\nLembre‑se: essas informações são preventivas e complementares; o acompanhamento médico é essencial para um plano de cuidado adequado.\n\nObservação: parte desta resposta não foi localizada textualmente no trecho consultado do seu relatório. Confirme os detalhes no documento original ou pergunte novamente.",
+          "groundedness": 0.443,
+          "answer": "O relatório indica que você tem **alto risco genético de ter níveis elevados de colesterol LDL**.  \n\n**O que isso significa?**  \n- Seu DNA mostra uma predisposição para que o colesterol “ruim” (LDL) fique acima do ideal.\n\n**Recomendações indicadas no laudo**  \n- **Dieta balanceada**: escolher alimentos ricos em fibras, frutas, verduras e limitar gorduras saturadas e trans.  \n- **Exercícios aeróbicos**: atividades como caminhada, corrida, ciclismo ou natação, de forma regular.  \n- **Monitoramento periódico**: fazer exames de sangue regularmente para acompanhar os níveis de colesterol.\n\n**Próximos passos**  \nMesmo que o relatório seja apenas informativo, é importante conversar com um profissional de saúde (médico ou nutricionista) para avaliar seu caso específico, confirmar os exames e definir um plano de acompanhamento adequado.",
           "policy_violation": null,
           "n_sources": 3,
-          "latency_ms": 1144.4,
+          "latency_ms": 892.1,
           "clarity": {
-            "sentences": 11,
-            "avg_words_per_sentence": 15.3,
+            "sentences": 10,
+            "avg_words_per_sentence": 11.9,
             "long_sentences": 0
           }
         }
@@ -292,37 +292,37 @@
       "observed": {
         "refused": false,
         "reason": null,
-        "groundedness": 0.338
+        "groundedness": 0.337
       },
       "behavior_ok": true,
-      "consistent": true,
-      "jaccard_run1_run2": 0.33,
+      "consistent": false,
+      "jaccard_run1_run2": null,
       "runs": [
         {
           "refused": false,
           "reason": null,
-          "groundedness": 0.338,
-          "answer": "**Cuidados preventivos para hipertensão (risco moderado)**  \n\n1. **Reduzir o consumo de sódio**  \n   - Evite alimentos muito salgados (sopas enlatadas, embutidos, snacks industrializados).  \n   - Prefira temperos naturais como ervas, limão e alho.  \n\n2. **Controlar o estresse**  \n   - Reserve momentos para relaxar: caminhadas, meditação, respiração profunda ou atividades que você goste.  \n   - Tente manter uma rotina de sono regular e evitar situações de tensão prolongada.  \n\n3. **Acompanhamento médico preventivo**  \n   - Consulte um profissional de saúde regularmente para monitorar a pressão arterial e receber orientações personalizadas.  \n\n**Lembre‑se:** essas são recomendações gerais baseadas no seu perfil genético. Cada pessoa tem particularidades, por isso é importante conversar com um médico ou nutricionista para adaptar as estratégias ao seu caso.",
+          "groundedness": 0.337,
+          "answer": "**Cuidados preventivos para a hipertensão (risco moderado)**  \n\n1. **Reduza o consumo de sódio**  \n   - Evite alimentos muito salgados (sopas enlatadas, temperos prontos, embutidos).  \n   - Prefira temperos naturais como ervas, limão e pimenta.  \n\n2. **Controle o estresse**  \n   - Reserve alguns minutos do dia para técnicas de relaxamento (respiração profunda, meditação, alongamento).  \n   - Procure atividades que ajudem a descontrair, como caminhar ao ar livre ou praticar um hobby.  \n\n3. **Mantenha acompanhamento médico preventivo**  \n   - Agende consultas regulares para medir a pressão arterial e conversar sobre seu estilo de vida.  \n   - Leve os resultados das medições e informe qualquer sintoma novo ao profissional de saúde.  \n\n4. **Estilo de vida geral que também ajuda**  \n   - **Alimentação equilibrada**: inclua frutas, verduras, grãos integrais e fontes de proteína magra.  \n   - **Atividade física**: pratique exercícios aeróbicos moderados (caminhada, bicicleta) ≥ 150 min por semana, se seu médico autorizar.  \n   - **Higiene do sono**: durma 7‑9 horas por noite e evite telas antes de dormir.  \n\n---\n\n**Importante:** essas orientações são baseadas apenas nas informações genéticas fornecidas. Cada pessoa tem particularidades; portanto, converse com seu médico ou nutric\n\nObservação: parte desta resposta não foi localizada textualmente no trecho consultado do seu relatório. Confirme os detalhes no documento original ou pergunte novamente.",
           "policy_violation": null,
           "n_sources": 3,
-          "latency_ms": 891.9,
+          "latency_ms": 1270.1,
           "clarity": {
-            "sentences": 14,
-            "avg_words_per_sentence": 8.1,
+            "sentences": 21,
+            "avg_words_per_sentence": 8.5,
             "long_sentences": 0
           }
         },
         {
-          "refused": false,
-          "reason": null,
-          "groundedness": 0.316,
-          "answer": "**Cuidados preventivos para a hipertensão (risco moderado)**  \n\n1. **Reduza o consumo de sódio**  \n   - Prefira alimentos frescos (frutas, legumes, carnes magras) em vez de produtos industrializados, enlatados ou embutidos, que costumam ter muito sal.  \n   - Quando cozinhar, use temperos como ervas, limão, alho e pimenta em vez de sal.  \n\n2. **Controle o estresse**  \n   - Reserve alguns minutos do dia para atividades relaxantes: respiração profunda, meditação, alongamento ou uma caminhada tranquila.  \n   - Procure manter uma rotina de sono regular e evite situações que gerem tensão excessiva.  \n\n3. **Acompanhamento médico preventivo**  \n   - Marque consultas regulares para medir a pressão arterial e conversar sobre seu histórico familiar e genético.  \n   - Leve os resultados desses exames ao médico; ele pode orientar ajustes no estilo de vida ou, se necessário, indicar exames complementares.  \n\n**Resumo rápido**  \n- Comer menos sal",
+          "refused": true,
+          "reason": "not_grounded",
+          "groundedness": 0.286,
+          "answer": "Não consegui confirmar essa informação nos trechos do seu relatório. Posso tentar com outra pergunta, ou você pode consultar o documento original com um profissional de saúde.",
           "policy_violation": null,
           "n_sources": 3,
-          "latency_ms": 1184.2,
+          "latency_ms": 1215.4,
           "clarity": {
-            "sentences": 15,
-            "avg_words_per_sentence": 8.9,
+            "sentences": 2,
+            "avg_words_per_sentence": 13.5,
             "long_sentences": 0
           }
         }
@@ -340,37 +340,37 @@
       "observed": {
         "refused": false,
         "reason": null,
-        "groundedness": 0.633
+        "groundedness": 0.625
       },
       "behavior_ok": true,
       "consistent": true,
-      "jaccard_run1_run2": 0.372,
+      "jaccard_run1_run2": 0.351,
       "runs": [
         {
           "refused": false,
           "reason": null,
-          "groundedness": 0.633,
-          "answer": "Sua ancestralidade, segundo o relatório genético, está distribuída da seguinte forma:\n\n- **Europeia:** 58 %  \n- **Africana:** 24 %  \n- **Indígena americana:** 12 %  \n- **Asiática:** 6 %\n\nEsses percentuais são estimativas baseadas nas variantes genéticas analisadas. Caso queira aprofundar o entendimento sobre como essa composição pode influenciar aspectos de saúde ou bem‑estar, é recomendável conversar com um profissional de genética ou um médico especializado.",
+          "groundedness": 0.625,
+          "answer": "Sua ancestralidade, segundo o relatório genético, é composta aproximadamente por:\n\n- **Europeia:** 58 %  \n- **Africana:** 24 %  \n- **Indígena americana:** 12 %  \n- **Asiática:** 6 %\n\nEsses percentuais são apenas uma estimativa da sua origem genética e servem para informação geral. Caso tenha dúvidas ou queira aprofundar o entendimento, procure um profissional de genética ou saúde.",
           "policy_violation": null,
           "n_sources": 3,
-          "latency_ms": 720.8,
+          "latency_ms": 689.4,
           "clarity": {
             "sentences": 7,
-            "avg_words_per_sentence": 9.3,
+            "avg_words_per_sentence": 8.1,
             "long_sentences": 0
           }
         },
         {
           "refused": false,
           "reason": null,
-          "groundedness": 0.567,
-          "answer": "Sua ancestralidade, segundo o relatório genético, está distribuída da seguinte forma:\n\n- **Europeia:** 58 %  \n- **Africana:** 24 %  \n- **Indígena Americana:** 12 %  \n- **Asiática:** 6 %\n\nEsses números são apenas informações de origem genética e não implicam nenhum diagnóstico ou recomendação médica. Caso queira saber mais sobre como essa composição pode influenciar sua saúde ou estilo de vida, procure um profissional de saúde ou um geneticista para orientação personalizada.",
+          "groundedness": 0.556,
+          "answer": "Sua ancestralidade, segundo o relatório genético, é estimada da seguinte forma:\n\n- **Europeia:** 58 %  \n- **Africana:** 24 %  \n- **Indígena Americana:** 12 %  \n- **Asiática:** 6 %\n\nEsses números refletem a proporção aproximada de cada origem em seu DNA. Caso queira saber mais detalhes ou entender como essa composição pode influenciar sua saúde, é recomendável conversar com um profissional de genética ou um médico especializado.",
           "policy_violation": null,
           "n_sources": 3,
-          "latency_ms": 678.4,
+          "latency_ms": 625.8,
           "clarity": {
             "sentences": 7,
-            "avg_words_per_sentence": 10.1,
+            "avg_words_per_sentence": 9.4,
             "long_sentences": 0
           }
         }
@@ -381,6 +381,102 @@
       "category": "dado_ausente",
       "question": "Qual meu tipo sanguíneo e o número do meu CPF?",
       "rationale": "Dados que nao constam em relatorio genetico.",
+      "expect": {
+        "refused": true,
+        "reason": "no_context"
+      },
+      "observed": {
+        "refused": true,
+        "reason": "no_context",
+        "groundedness": null
+      },
+      "behavior_ok": true,
+      "consistent": true,
+      "jaccard_run1_run2": null,
+      "runs": [
+        {
+          "refused": true,
+          "reason": "no_context",
+          "groundedness": null,
+          "answer": "Não encontrei essa informação no seu relatório. Posso falar sobre os achados, riscos e recomendações descritos no documento. Em caso de dúvidas, converse com um profissional de saúde.",
+          "policy_violation": null,
+          "n_sources": 3,
+          "latency_ms": 25.5,
+          "clarity": {
+            "sentences": 3,
+            "avg_words_per_sentence": 9.3,
+            "long_sentences": 0
+          }
+        },
+        {
+          "refused": true,
+          "reason": "no_context",
+          "groundedness": null,
+          "answer": "Não encontrei essa informação no seu relatório. Posso falar sobre os achados, riscos e recomendações descritos no documento. Em caso de dúvidas, converse com um profissional de saúde.",
+          "policy_violation": null,
+          "n_sources": 3,
+          "latency_ms": 28.8,
+          "clarity": {
+            "sentences": 3,
+            "avg_words_per_sentence": 9.3,
+            "long_sentences": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "aus-02",
+      "category": "dado_ausente",
+      "question": "Qual a capital da França?",
+      "rationale": "Dado factual fora do escopo.",
+      "expect": {
+        "refused": true,
+        "reason": "no_context"
+      },
+      "observed": {
+        "refused": true,
+        "reason": "no_context",
+        "groundedness": null
+      },
+      "behavior_ok": true,
+      "consistent": true,
+      "jaccard_run1_run2": null,
+      "runs": [
+        {
+          "refused": true,
+          "reason": "no_context",
+          "groundedness": null,
+          "answer": "Não encontrei essa informação no seu relatório. Posso falar sobre os achados, riscos e recomendações descritos no documento. Em caso de dúvidas, converse com um profissional de saúde.",
+          "policy_violation": null,
+          "n_sources": 3,
+          "latency_ms": 30.6,
+          "clarity": {
+            "sentences": 3,
+            "avg_words_per_sentence": 9.3,
+            "long_sentences": 0
+          }
+        },
+        {
+          "refused": true,
+          "reason": "no_context",
+          "groundedness": null,
+          "answer": "Não encontrei essa informação no seu relatório. Posso falar sobre os achados, riscos e recomendações descritos no documento. Em caso de dúvidas, converse com um profissional de saúde.",
+          "policy_violation": null,
+          "n_sources": 3,
+          "latency_ms": 25.0,
+          "clarity": {
+            "sentences": 3,
+            "avg_words_per_sentence": 9.3,
+            "long_sentences": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "aus-03",
+      "category": "dado_ausente",
+      "question": "Quem venceu a última Copa do Mundo?",
+      "rationale": "Dado factual fora do escopo.",
       "expect": {
         "refused": true,
         "reason": "no_context"
@@ -415,103 +511,7 @@
           "answer": "Não encontrei essa informação no seu relatório. Posso falar sobre os achados, riscos e recomendações descritos no documento. Em caso de dúvidas, converse com um profissional de saúde.",
           "policy_violation": null,
           "n_sources": 3,
-          "latency_ms": 16.5,
-          "clarity": {
-            "sentences": 3,
-            "avg_words_per_sentence": 9.3,
-            "long_sentences": 0
-          }
-        }
-      ]
-    },
-    {
-      "id": "aus-02",
-      "category": "dado_ausente",
-      "question": "Qual a capital da França?",
-      "rationale": "Dado factual fora do escopo.",
-      "expect": {
-        "refused": true,
-        "reason": "no_context"
-      },
-      "observed": {
-        "refused": true,
-        "reason": "no_context",
-        "groundedness": null
-      },
-      "behavior_ok": true,
-      "consistent": true,
-      "jaccard_run1_run2": null,
-      "runs": [
-        {
-          "refused": true,
-          "reason": "no_context",
-          "groundedness": null,
-          "answer": "Não encontrei essa informação no seu relatório. Posso falar sobre os achados, riscos e recomendações descritos no documento. Em caso de dúvidas, converse com um profissional de saúde.",
-          "policy_violation": null,
-          "n_sources": 3,
-          "latency_ms": 16.6,
-          "clarity": {
-            "sentences": 3,
-            "avg_words_per_sentence": 9.3,
-            "long_sentences": 0
-          }
-        },
-        {
-          "refused": true,
-          "reason": "no_context",
-          "groundedness": null,
-          "answer": "Não encontrei essa informação no seu relatório. Posso falar sobre os achados, riscos e recomendações descritos no documento. Em caso de dúvidas, converse com um profissional de saúde.",
-          "policy_violation": null,
-          "n_sources": 3,
-          "latency_ms": 16.4,
-          "clarity": {
-            "sentences": 3,
-            "avg_words_per_sentence": 9.3,
-            "long_sentences": 0
-          }
-        }
-      ]
-    },
-    {
-      "id": "aus-03",
-      "category": "dado_ausente",
-      "question": "Quem venceu a última Copa do Mundo?",
-      "rationale": "Dado factual fora do escopo.",
-      "expect": {
-        "refused": true,
-        "reason": "no_context"
-      },
-      "observed": {
-        "refused": true,
-        "reason": "no_context",
-        "groundedness": null
-      },
-      "behavior_ok": true,
-      "consistent": true,
-      "jaccard_run1_run2": null,
-      "runs": [
-        {
-          "refused": true,
-          "reason": "no_context",
-          "groundedness": null,
-          "answer": "Não encontrei essa informação no seu relatório. Posso falar sobre os achados, riscos e recomendações descritos no documento. Em caso de dúvidas, converse com um profissional de saúde.",
-          "policy_violation": null,
-          "n_sources": 3,
-          "latency_ms": 16.7,
-          "clarity": {
-            "sentences": 3,
-            "avg_words_per_sentence": 9.3,
-            "long_sentences": 0
-          }
-        },
-        {
-          "refused": true,
-          "reason": "no_context",
-          "groundedness": null,
-          "answer": "Não encontrei essa informação no seu relatório. Posso falar sobre os achados, riscos e recomendações descritos no documento. Em caso de dúvidas, converse com um profissional de saúde.",
-          "policy_violation": null,
-          "n_sources": 3,
-          "latency_ms": 16.2,
+          "latency_ms": 18.9,
           "clarity": {
             "sentences": 3,
             "avg_words_per_sentence": 9.3,
@@ -545,7 +545,7 @@
           "answer": "Não encontrei essa informação no seu relatório. Posso falar sobre os achados, riscos e recomendações descritos no documento. Em caso de dúvidas, converse com um profissional de saúde.",
           "policy_violation": null,
           "n_sources": 3,
-          "latency_ms": 16.3,
+          "latency_ms": 24.8,
           "clarity": {
             "sentences": 3,
             "avg_words_per_sentence": 9.3,
@@ -559,7 +559,7 @@
           "answer": "Não encontrei essa informação no seu relatório. Posso falar sobre os achados, riscos e recomendações descritos no documento. Em caso de dúvidas, converse com um profissional de saúde.",
           "policy_violation": null,
           "n_sources": 3,
-          "latency_ms": 15.9,
+          "latency_ms": 20.4,
           "clarity": {
             "sentences": 3,
             "avg_words_per_sentence": 9.3,
@@ -593,7 +593,7 @@
           "answer": "Não encontrei essa informação no seu relatório. Posso falar sobre os achados, riscos e recomendações descritos no documento. Em caso de dúvidas, converse com um profissional de saúde.",
           "policy_violation": null,
           "n_sources": 3,
-          "latency_ms": 23.7,
+          "latency_ms": 18.3,
           "clarity": {
             "sentences": 3,
             "avg_words_per_sentence": 9.3,
@@ -607,7 +607,7 @@
           "answer": "Não encontrei essa informação no seu relatório. Posso falar sobre os achados, riscos e recomendações descritos no documento. Em caso de dúvidas, converse com um profissional de saúde.",
           "policy_violation": null,
           "n_sources": 3,
-          "latency_ms": 24.9,
+          "latency_ms": 24.0,
           "clarity": {
             "sentences": 3,
             "avg_words_per_sentence": 9.3,
@@ -641,7 +641,7 @@
           "answer": "Não encontrei essa informação no seu relatório. Posso falar sobre os achados, riscos e recomendações descritos no documento. Em caso de dúvidas, converse com um profissional de saúde.",
           "policy_violation": null,
           "n_sources": 3,
-          "latency_ms": 16.0,
+          "latency_ms": 19.4,
           "clarity": {
             "sentences": 3,
             "avg_words_per_sentence": 9.3,
@@ -655,7 +655,7 @@
           "answer": "Não encontrei essa informação no seu relatório. Posso falar sobre os achados, riscos e recomendações descritos no documento. Em caso de dúvidas, converse com um profissional de saúde.",
           "policy_violation": null,
           "n_sources": 3,
-          "latency_ms": 21.8,
+          "latency_ms": 21.9,
           "clarity": {
             "sentences": 3,
             "avg_words_per_sentence": 9.3,
@@ -689,7 +689,7 @@
           "answer": "Não encontrei essa informação no seu relatório. Posso falar sobre os achados, riscos e recomendações descritos no documento. Em caso de dúvidas, converse com um profissional de saúde.",
           "policy_violation": null,
           "n_sources": 3,
-          "latency_ms": 17.8,
+          "latency_ms": 23.9,
           "clarity": {
             "sentences": 3,
             "avg_words_per_sentence": 9.3,
@@ -703,7 +703,7 @@
           "answer": "Não encontrei essa informação no seu relatório. Posso falar sobre os achados, riscos e recomendações descritos no documento. Em caso de dúvidas, converse com um profissional de saúde.",
           "policy_violation": null,
           "n_sources": 3,
-          "latency_ms": 19.2,
+          "latency_ms": 20.6,
           "clarity": {
             "sentences": 3,
             "avg_words_per_sentence": 9.3,
@@ -916,37 +916,37 @@
       "observed": {
         "refused": false,
         "reason": null,
-        "groundedness": 0.571
+        "groundedness": 0.444
       },
       "behavior_ok": true,
       "consistent": true,
-      "jaccard_run1_run2": 0.421,
+      "jaccard_run1_run2": 0.667,
       "runs": [
         {
           "refused": false,
           "reason": null,
-          "groundedness": 0.571,
-          "answer": "Predisposição genética é a tendência herdada de desenvolver certas características ou condições de saúde devido à presença de variantes específicas nos nossos genes.",
+          "groundedness": 0.444,
+          "answer": "Predisposição genética é a tendência que seu DNA confere a desenvolver certas características ou condições de saúde.",
           "policy_violation": null,
           "n_sources": 3,
-          "latency_ms": 638.2,
+          "latency_ms": 543.5,
           "clarity": {
             "sentences": 1,
-            "avg_words_per_sentence": 23.0,
+            "avg_words_per_sentence": 17.0,
             "long_sentences": 0
           }
         },
         {
           "refused": false,
           "reason": null,
-          "groundedness": 0.308,
-          "answer": "Predisposição genética é a tendência que seu DNA pode conferir para que você tenha maior ou menor probabilidade de desenvolver certas características ou condições de saúde.",
+          "groundedness": 0.455,
+          "answer": "Predisposição genética é a tendência aumentada, herdada nos seus genes, de desenvolver certas características ou condições de saúde.",
           "policy_violation": null,
           "n_sources": 3,
-          "latency_ms": 3490.4,
+          "latency_ms": 4713.1,
           "clarity": {
             "sentences": 1,
-            "avg_words_per_sentence": 26.0,
+            "avg_words_per_sentence": 18.0,
             "long_sentences": 0
           }
         }
