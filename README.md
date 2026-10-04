@@ -18,7 +18,7 @@
 
 ## Vídeo
 
-- **Sprint 4 (fase final):** 
+- **Sprint 4 (fase final):** https://youtu.be/tbgaDIVSIdc
 - **App (fase final):** https://youtube.com/shorts/xfmcfVPZYBU?feature=share
 
 ---
@@ -47,15 +47,15 @@ linguagem simples, com **guardrails**, **LGPD programática**, **logs auditávei
 O fluxo principal da aplicação é:
 
 
-- 1.O usuário acessa o aplicativo e interage com a tela de consentimento.
-- 2.O aplicativo solicita os dados do relatório ou envia uma pergunta à API.
-- 3.A API verifica as condições de processamento e encaminha a solicitação ao serviço correspondente.
-- 4.Para perguntas, o sistema aplica validações de entrada e verifica se a solicitação está dentro do escopo.
-- 5.O mecanismo RAG realiza uma busca semântica no ChromaDB e recupera trechos relevantes.
-- 6.O modelo de linguagem recebe a pergunta e o contexto recuperado para gerar uma resposta.
-- 7.A resposta passa pelos mecanismos de validação e pelas políticas de saída.
-- 8.A API retorna o resultado ao aplicativo, incluindo fontes e informações de recusa quando aplicável.
-- 9.Eventos técnicos e métricas são registrados sem armazenar o conteúdo das perguntas, respostas ou dados genéticos nos logs.
+- O usuário acessa o aplicativo e interage com a tela de consentimento.
+- O aplicativo solicita os dados do relatório ou envia uma pergunta à API.
+- A API verifica as condições de processamento e encaminha a solicitação ao serviço correspondente.
+- Para perguntas, o sistema aplica validações de entrada e verifica se a solicitação está dentro do escopo.
+- O mecanismo RAG realiza uma busca semântica no ChromaDB e recupera trechos relevantes.
+- O modelo de linguagem recebe a pergunta e o contexto recuperado para gerar uma resposta.
+- A resposta passa pelos mecanismos de validação e pelas políticas de saída.
+- A API retorna o resultado ao aplicativo, incluindo fontes e informações de recusa quando aplicável.
+- Eventos técnicos e métricas são registrados sem armazenar o conteúdo das perguntas, respostas ou dados genéticos nos logs.
 
 
 ## Agente Conversacional
@@ -78,7 +78,7 @@ A aplicação foi desenvolvida seguindo o mesmo estilo que a versão web. Conten
 - Chat com o agente conversacional
 - Layout e visual responsivo para cada aparelho mobile
 
-<img src="/assets/app_final.png" widht="100%">
+<img src="/assets/app_final.png" widht="70%">
 
 ## Governança e LGPD
 
@@ -104,7 +104,7 @@ Entre os casos tratados estão:
 Quando uma solicitação é recusada por não possuir contexto suficiente ou por violar as regras de entrada, o sistema retorna uma resposta de recusa com o motivo.
 
 A aplicação disponibiliza um mecanismo de consentimento por meio da API e da interface mobile.
-O consentimento pode ser consultado e registrado pelos endpoints correspondentes. Também existe uma configuração opcional para exigir consentimento antes de permitir o uso do chat.
+O consentimento pode ser consultado e registrado pelos endpoints correspondentes. 
 
 <img src="/assets/consentimento.png" widht="100%">
 
@@ -119,6 +119,7 @@ O histórico de conversa é tratado como contexto temporário de sessão, sem um
 
 A Sprint 4 incorporou um processo reproduzível de avaliação do agente, com um conjunto de 18 perguntas de referência.
 O objetivo é verificar o comportamento do sistema em situações representativas, incluindo perguntas sobre o relatório, solicitações sem contexto suficiente e casos que exigem aplicação das regras de segurança.
+
 <img src="/assets/avaliacao_modelo.png" widht="100%">
 <img src="/assets/validacao.png" widht="100%">
 
@@ -155,15 +156,18 @@ Os resultados são referentes ao conjunto de testes, às configurações e às e
 
 
 A Sprint 4 consolidou o AIReport Gen-Experience como uma aplicação com arquitetura mobile e API, incorporando controles técnicos e operacionais para tornar o uso da inteligência artificial mais rastreável, avaliável e responsável.
+
 Os principais avanços foram:
-•	Integração entre React Native/Expo e FastAPI.
-•	Separação entre interface e lógica de processamento.
-•	Validação programática de entradas e respostas.
-•	Mecanismos de consentimento, retenção e expurgo.
-•	Logging estruturado com rastreabilidade por trace_id.
-•	Monitoramento por endpoints de saúde e métricas.
-•	Avaliação reproduzível do agente com conjunto de perguntas de referência.
-•	Documentação de governança, riscos e limitações.
+
+- Integração entre React Native/Expo e FastAPI.
+- Separação entre interface e processamento.
+- Validação de entradas e respostas.
+- Mecanismos de consentimento, retenção e expurgo.
+- Logging estruturado com rastreabilidade.
+-	Monitoramento por endpoints de saúde e métricas.
+- Avaliação reproduzível do agente com conjunto de perguntas de referência.
+-	Documentação de governança, riscos e limitações.
+
 Na validação registrada, a solução apresentou 109 testes automatizados aprovados, 12 de 12 asserções no fluxo E2E, bundles Android e Web gerados com sucesso e avaliação do modelo aprovada pelos critérios definidos no harness.
 
 <img src="/assets/status_sistema.png" widht="100%">
@@ -403,6 +407,7 @@ curl -X POST http://127.0.0.1:8010/api/v1/chat \
 
 ## Governança e LGPD
 
+- **Relatório de Governança Final:** [`relatorio_governaca_riscos.pdf`](relatorio_governaca_riscos.pdf)
 - **Política completa:** [`docs/politica_governanca_sprint4.md`](docs/politica_governanca_sprint4.md)
 - Consentimento com registro (apenas flag/versão/timestamp — **sem PII**); gate opcional via `REQUIRE_CONSENT=true`.
 - **Retenção:** `LOG_RETENTION_DAYS` (padrão 30) com expurgo na inicialização e via `python -m app.governance.policy`.
@@ -430,8 +435,6 @@ python -m uvicorn api.main:app --host 0.0.0.0 --port 8010
 cd mobile && npm run android     # ou npm run web / Expo Go com EXPO_PUBLIC_BASE_URL
 ```
 
-**Limitações declaradas:** a solução mantém o processamento **local** (ChromaDB + embeddings no disco),
-por decisão de privacidade do dado genético. 
 
 ## User stories
 
@@ -442,10 +445,3 @@ por decisão de privacidade do dado genético.
 | US3 | Ver resumo dos principais riscos | ✅ dashboard com cards priorizados |
 | US4 | Usar no celular | ✅ app React Native (Expo) |
 | US5 | Confiar no uso dos meus dados | ✅ consentimento, política, auditoria e recusas |
-
-
-
-<p align="center">
-  <strong>AIReport Gen-Experience</strong> — transformando dados genéticos complexos<br>
-  em inteligência preventiva personalizada.
-</p>
