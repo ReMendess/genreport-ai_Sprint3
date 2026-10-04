@@ -131,22 +131,25 @@ A aplicação também possui mecanismos para acompanhar a saúde dos serviços e
 
 ### Critérios avaliados
 
-|Aderência ao contexto| Verificar se a resposta respeita as informações disponíveis|
-|Consistência| Avaliar a estabilidade das respostas em execuções repetidas|
-|Groundedness|Medir a fundamentação textual das respostas no contexto recuperado|
-|Violações| Identificar descumprimentos das regras definidas|
-|Recusas| Verificar o tratamento de solicitações fora do escopo|
+| Critério | Descrição |
+|---|---|
+| Aderência ao contexto | Verificar se a resposta respeita as informações disponíveis |
+| Consistência | Avaliar a estabilidade das respostas em execuções repetidas |
+| Groundedness | Medir a fundamentação textual das respostas no contexto recuperado |
+| Violações | Identificar descumprimentos das regras definidas |
+| Recusas | Verificar o tratamento de solicitações fora do escopo |
 
 ### Resultados da avaliação
 
-Na avaliação registrada foram obtidos os seguintes resultados:
+Na avaliação registrada, foram obtidos os seguintes resultados:
 
-|Métrica|Resultado|
-|Aderência| 1,00|
-|Consistência| 1,00|
-|Groundedness|Aproximadamente 0,571|
-|Violações identificadas| 0|
-|Veredito do harness| APROVADO|
+| Métrica | Resultado |
+|---|---:|
+| Aderência | 1,00 |
+| Consistência | 1,00 |
+| Groundedness | Aproximadamente 0,571 |
+| Violações identificadas | 0 |
+| Veredito do harness | APROVADO |
 
 Os resultados são referentes ao conjunto de testes, às configurações e às execuções documentadas. Não representam uma garantia de desempenho equivalente em todos os relatórios, usuários ou cenários de utilização.
 
@@ -172,18 +175,17 @@ Na validação registrada, a solução apresentou 109 testes automatizados aprov
 
 <img src="/assets/status_sistema.png" widht="100%">
 
-### Status da Sprint 4 
+### Status da Sprint 4
 
 | Bloco de requisito | Evidência |
-|---|---|---|
-| Governança de IA (LGPD, explicabilidade, logging) | `docs/politica_governanca_sprint4.md` · `logs/audit.log` |
-| Operação e automação (monitoramento, falhas) | `/status`, `/metrics`, `scripts/monitor.py` |
-| Avaliação do modelo (qualidade, consistência) | `docs/evidencia_evaluacion_sprint4.md` |
-| Validação das respostas (clareza, aderência, refusal) | `app/validation/**` + 109 testes |
-| Deploy (app RN + fluxo ponta a ponta) | `mobile/**` + bundle Android/Web + E2E 12/12 |
-| Refinamento final (consolidação, UX, performance) | migração `langchain-chroma`, cards RN = web |
-| Documentação | este README + `docs/**` + `mobile/README.md` |
-
+|---|---|
+| Governança de IA (LGPD, explicabilidade e logging) | `docs/politica_governanca_sprint4.md` · `logs/audit.log` |
+| Operação e automação (monitoramento e falhas) | `/status` · `/metrics` · `scripts/monitor.py` |
+| Avaliação do modelo (qualidade e consistência) | `docs/evidencia_evaluacion_sprint4.md` |
+| Validação das respostas (clareza, aderência e recusa) | `app/validation/**` · 109 testes aprovados |
+| Deploy (app React Native e fluxo ponta a ponta) | `mobile/**` · bundles Android/Web · E2E 12/12 |
+| Refinamento final (consolidação, UX e performance) | Migração para `langchain-chroma` · paridade dos cards entre RN e Web |
+| Documentação | `README.md` · `docs/**` · `mobile/README.md` |
 ---
 
 ## Evolução das 4 Sprints
