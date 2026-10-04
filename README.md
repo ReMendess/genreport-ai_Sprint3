@@ -19,7 +19,7 @@
 ## Vídeo
 
 - **Sprint 4 (fase final):** 
-- **App (fase final):** 
+- **App (fase final):** https://youtube.com/shorts/xfmcfVPZYBU?feature=share
 
 ---
 
@@ -77,6 +77,8 @@ A aplicação foi desenvolvida seguindo o mesmo estilo que a versão web. Conten
 - Botões de expansão, para mostrar mais informações por tópicos
 - Chat com o agente conversacional
 - Layout e visual responsivo para cada aparelho mobile
+
+<img src="/assets/app_final.png" widht="100%">
 
 ## Governança e LGPD
 
@@ -164,8 +166,7 @@ Os principais avanços foram:
 •	Documentação de governança, riscos e limitações.
 Na validação registrada, a solução apresentou 109 testes automatizados aprovados, 12 de 12 asserções no fluxo E2E, bundles Android e Web gerados com sucesso e avaliação do modelo aprovada pelos critérios definidos no harness.
 
-
-<img src="/assets/status_sistema.png" widht="150>
+<img src="/assets/status_sistema.png" widht="100%">
 
 ### Status da Sprint 4 
 
