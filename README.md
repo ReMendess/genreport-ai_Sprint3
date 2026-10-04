@@ -36,7 +36,7 @@ O usuário conversa com o próprio relatório, vê cards de risco e ancestralida
 linguagem simples, com **guardrails**, **LGPD programática**, **logs auditáveis**,
 **avaliação de qualidade com evidências** e **operação monitorada** (status/métricas).
 
-<img src="/assets/home_page.png" widht="150">
+<img src="/assets/home_page.png" widht="100%">
 
 > O assistente **não** emite diagnóstico, prescrição ou recomendações fora do
 > relatório, e não substitui consulta médica.
@@ -67,7 +67,7 @@ O agente foi projetado para atuar como:
 - Recurso informativo.
 - Interface conversacional para consulta de informações presentes no relatório.
 
-<img src="/assets/resposta_agente.png" widht="150">
+<img src="/assets/resposta_agente.png" widht="80%">
 
 ## Aplicação Mobile
 
@@ -104,7 +104,7 @@ Quando uma solicitação é recusada por não possuir contexto suficiente ou por
 A aplicação disponibiliza um mecanismo de consentimento por meio da API e da interface mobile.
 O consentimento pode ser consultado e registrado pelos endpoints correspondentes. Também existe uma configuração opcional para exigir consentimento antes de permitir o uso do chat.
 
-<img src="/assets/consentimento.png" widht="150">
+<img src="/assets/consentimento.png" widht="100%">
 
 O projeto implementa uma política de retenção de 30 dias para os registros abrangidos pelo mecanismo de expurgo de logs.
 Também existe um recurso de expurgo executável por meio dos módulos de governança.
@@ -113,17 +113,18 @@ O histórico de conversa é tratado como contexto temporário de sessão, sem um
 
 ## Testes e Validação
 
-
-A aplicação possui mecanismos para acompanhar a saúde dos serviços e identificar falhas operacionais.
-
 ### Avaliação e qualidade do modelo
+
 A Sprint 4 incorporou um processo reproduzível de avaliação do agente, com um conjunto de 18 perguntas de referência.
 O objetivo é verificar o comportamento do sistema em situações representativas, incluindo perguntas sobre o relatório, solicitações sem contexto suficiente e casos que exigem aplicação das regras de segurança.
+<img src="/assets/avaliacao_modelo.png" widht="100%">
+<img src="/assets/validacao.png" widht="100%">
 
-<img src="/assets/avaliacao_modelo.png" widht="150">
-<img src="/assets/resultado_testes.png" widht="150">
 
-<img src="/assets/resultado_testes.png" widht="150">
+A aplicação também possui mecanismos para acompanhar a saúde dos serviços e identificar falhas operacionais.
+
+<img src="/assets/validacao_pipeline.png" widht="150">
+
 
 ### Critérios avaliados
 
@@ -146,8 +147,9 @@ Na avaliação registrada foram obtidos os seguintes resultados:
 
 Os resultados são referentes ao conjunto de testes, às configurações e às execuções documentadas. Não representam uma garantia de desempenho equivalente em todos os relatórios, usuários ou cenários de utilização.
 
-<img src="/assets/validacao.png" widht="150">
-<img src="/assets/validacao_pipeline.png" widht="150>
+
+
+<img src="/assets/resultado_testes.png" widht="150">
 
 
 A Sprint 4 consolidou o AIReport Gen-Experience como uma aplicação com arquitetura mobile e API, incorporando controles técnicos e operacionais para tornar o uso da inteligência artificial mais rastreável, avaliável e responsável.
