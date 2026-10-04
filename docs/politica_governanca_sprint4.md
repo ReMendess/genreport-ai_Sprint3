@@ -92,12 +92,8 @@ Como exercer nesta aplicação:
 | Revogação | `POST /api/v1/consent {"granted": false}` |
 | Informação | Este documento + README |
 
-## 9. Purga do histórico Git — **PENDENTE (não executada nesta etapa)**
+## 9. Purga do histórico Git —
 
-O arquivo com PII saiu do versionamento (Etapa 1), **mas ainda existe no
-histórico** dos commits já publicados. A purga do histórico **não foi
-executada** (decisão consciente — exige coordenação com força-push). Procedimento
-recomendado antes da entrega final:
 
 ```bash
 # 1) instalar git-filter-repo (uma vez)

@@ -9,6 +9,18 @@
   RAG + LLM + App React Native + Governança de IA
 </p>
 
+## Autor
+
+| Nome | RM |
+|---|---|
+| [Renan de Oliveira Mendes](https://www.linkedin.com/in/renanmendes26/) | RM563145 |
+
+
+## Vídeo
+
+- **Sprint 4 (fase final):** 
+- **App (fase final):** 
+
 ---
 
 ## Visão geral
@@ -24,20 +36,146 @@ O usuário conversa com o próprio relatório, vê cards de risco e ancestralida
 linguagem simples, com **guardrails**, **LGPD programática**, **logs auditáveis**,
 **avaliação de qualidade com evidências** e **operação monitorada** (status/métricas).
 
+<img src="/assets/home_page.png" widht="150">
+
 > O assistente **não** emite diagnóstico, prescrição ou recomendações fora do
 > relatório, e não substitui consulta médica.
 
-### Status da Sprint 4 (fase final)
 
-| Bloco de requisito | Situação | Evidência |
+
+### Fluxo de processamento
+O fluxo principal da aplicação é:
+
+
+- 1.O usuário acessa o aplicativo e interage com a tela de consentimento.
+- 2.O aplicativo solicita os dados do relatório ou envia uma pergunta à API.
+- 3.A API verifica as condições de processamento e encaminha a solicitação ao serviço correspondente.
+- 4.Para perguntas, o sistema aplica validações de entrada e verifica se a solicitação está dentro do escopo.
+- 5.O mecanismo RAG realiza uma busca semântica no ChromaDB e recupera trechos relevantes.
+- 6.O modelo de linguagem recebe a pergunta e o contexto recuperado para gerar uma resposta.
+- 7.A resposta passa pelos mecanismos de validação e pelas políticas de saída.
+- 8.A API retorna o resultado ao aplicativo, incluindo fontes e informações de recusa quando aplicável.
+- 9.Eventos técnicos e métricas são registrados sem armazenar o conteúdo das perguntas, respostas ou dados genéticos nos logs.
+
+
+## Agente Conversacional
+
+O agente foi projetado para atuar como:
+
+- Assistente interpretativo de relatórios genéticos.
+- Ferramenta de simplificação de linguagem técnica.
+- Recurso informativo.
+- Interface conversacional para consulta de informações presentes no relatório.
+
+<img src="/assets/resposta_agente.png" widht="150">
+
+## Aplicação Mobile
+
+A aplicação foi desenvolvida seguindo o mesmo estilo que a versão web. Contendo:
+
+- Cards informativos
+- Botões de expansão, para mostrar mais informações por tópicos
+- Chat com o agente conversacional
+- Layout e visual responsivo para cada aparelho mobile
+
+## Governança e LGPD
+
+Foram incorporadas verificações programáticas antes e depois da geração.
+
+As instruções do agente orientam o modelo a:
+
+- Utilizar linguagem clara e acessível.
+- Manter uma comunicação não alarmista.
+- Responder com base no contexto recuperado.
+- Informar quando o relatório não contém os dados necessários.
+- Evitar diagnósticos e recomendações terapêuticas.
+- Preservar o caráter informativo das respostas.
+
+O sistema possui mecanismos para identificar solicitações que não devem seguir para geração.
+Entre os casos tratados estão:
+
+- Tentativas de prompt injection.
+- Perguntas fora do escopo do relatório.
+- Solicitações sem contexto recuperável.
+- Entradas que excedem os limites definidos.
+
+Quando uma solicitação é recusada por não possuir contexto suficiente ou por violar as regras de entrada, o sistema retorna uma resposta de recusa com o motivo.
+
+A aplicação disponibiliza um mecanismo de consentimento por meio da API e da interface mobile.
+O consentimento pode ser consultado e registrado pelos endpoints correspondentes. Também existe uma configuração opcional para exigir consentimento antes de permitir o uso do chat.
+
+<img src="/assets/consentimento.png" widht="150">
+
+O projeto implementa uma política de retenção de 30 dias para os registros abrangidos pelo mecanismo de expurgo de logs.
+Também existe um recurso de expurgo executável por meio dos módulos de governança.
+O histórico de conversa é tratado como contexto temporário de sessão, sem uma política de armazenamento permanente de conversas implementada como funcionalidade do protótipo.
+
+
+## Testes e Validação
+
+
+A aplicação possui mecanismos para acompanhar a saúde dos serviços e identificar falhas operacionais.
+
+### Avaliação e qualidade do modelo
+A Sprint 4 incorporou um processo reproduzível de avaliação do agente, com um conjunto de 18 perguntas de referência.
+O objetivo é verificar o comportamento do sistema em situações representativas, incluindo perguntas sobre o relatório, solicitações sem contexto suficiente e casos que exigem aplicação das regras de segurança.
+
+<img src="/assets/avaliacao_modelo.png" widht="150">
+<img src="/assets/resultado_testes.png" widht="150">
+
+<img src="/assets/resultado_testes.png" widht="150">
+
+### Critérios avaliados
+
+|Aderência ao contexto| Verificar se a resposta respeita as informações disponíveis|
+|Consistência| Avaliar a estabilidade das respostas em execuções repetidas|
+|Groundedness|Medir a fundamentação textual das respostas no contexto recuperado|
+|Violações| Identificar descumprimentos das regras definidas|
+|Recusas| Verificar o tratamento de solicitações fora do escopo|
+
+### Resultados da avaliação
+
+Na avaliação registrada foram obtidos os seguintes resultados:
+
+|Métrica|Resultado|
+|Aderência| 1,00|
+|Consistência| 1,00|
+|Groundedness|Aproximadamente 0,571|
+|Violações identificadas| 0|
+|Veredito do harness| APROVADO|
+
+Os resultados são referentes ao conjunto de testes, às configurações e às execuções documentadas. Não representam uma garantia de desempenho equivalente em todos os relatórios, usuários ou cenários de utilização.
+
+<img src="/assets/validacao.png" widht="150">
+<img src="/assets/validacao_pipeline.png" widht="150>
+
+
+A Sprint 4 consolidou o AIReport Gen-Experience como uma aplicação com arquitetura mobile e API, incorporando controles técnicos e operacionais para tornar o uso da inteligência artificial mais rastreável, avaliável e responsável.
+Os principais avanços foram:
+•	Integração entre React Native/Expo e FastAPI.
+•	Separação entre interface e lógica de processamento.
+•	Validação programática de entradas e respostas.
+•	Mecanismos de consentimento, retenção e expurgo.
+•	Logging estruturado com rastreabilidade por trace_id.
+•	Monitoramento por endpoints de saúde e métricas.
+•	Avaliação reproduzível do agente com conjunto de perguntas de referência.
+•	Documentação de governança, riscos e limitações.
+Na validação registrada, a solução apresentou 109 testes automatizados aprovados, 12 de 12 asserções no fluxo E2E, bundles Android e Web gerados com sucesso e avaliação do modelo aprovada pelos critérios definidos no harness.
+
+
+<img src="/assets/status_sistema.png" widht="150>
+
+### Status da Sprint 4 
+
+| Bloco de requisito | Evidência |
 |---|---|---|
-| Governança de IA (LGPD, explicabilidade, logging) | ✅ | `docs/politica_governanca_sprint4.md` · `logs/audit.log` |
-| Operação e automação (monitoramento, falhas) | ✅ | `/status`, `/metrics`, `scripts/monitor.py` |
-| Avaliação do modelo (qualidade, consistência) | ✅ | `docs/evidencia_evaluacion_sprint4.md` |
-| Validação das respostas (clareza, aderência, refusal) | ✅ | `app/validation/**` + 109 testes |
-| Deploy (app RN + fluxo ponta a ponta) | ✅ | `mobile/**` + bundle Android/Web + E2E 12/12 |
-| Refinamento final (consolidação, UX, performance) | ✅ | migração `langchain-chroma`, cards RN = web |
-| Documentação | ✅ | este README + `docs/**` + `mobile/README.md` |
+| Governança de IA (LGPD, explicabilidade, logging) | `docs/politica_governanca_sprint4.md` · `logs/audit.log` |
+| Operação e automação (monitoramento, falhas) | `/status`, `/metrics`, `scripts/monitor.py` |
+| Avaliação do modelo (qualidade, consistência) | `docs/evidencia_evaluacion_sprint4.md` |
+| Validação das respostas (clareza, aderência, refusal) | `app/validation/**` + 109 testes |
+| Deploy (app RN + fluxo ponta a ponta) | `mobile/**` + bundle Android/Web + E2E 12/12 |
+| Refinamento final (consolidação, UX, performance) | migração `langchain-chroma`, cards RN = web |
+| Documentação | este README + `docs/**` + `mobile/README.md` |
 
 ---
 
@@ -282,8 +420,6 @@ curl -X POST http://127.0.0.1:8010/api/v1/chat \
 
 ## Deploy
 
-**Demonstração local (recomendado para a banca):**
-
 ```bash
 # Terminal 1 — API acessível na rede
 python -m uvicorn api.main:app --host 0.0.0.0 --port 8010
@@ -292,8 +428,7 @@ cd mobile && npm run android     # ou npm run web / Expo Go com EXPO_PUBLIC_BASE
 ```
 
 **Limitações declaradas:** a solução mantém o processamento **local** (ChromaDB + embeddings no disco),
-por decisão de privacidade do dado genético. Para produção seriam necessários: HTTPS, autenticação,
-DPA com o provedor do LLM e política de retenção de dados — ver §7 e §10 da política de governança.
+por decisão de privacidade do dado genético. 
 
 ## User stories
 
@@ -305,25 +440,7 @@ DPA com o provedor do LLM e política de retenção de dados — ver §7 e §10 
 | US4 | Usar no celular | ✅ app React Native (Expo) |
 | US5 | Confiar no uso dos meus dados | ✅ consentimento, política, auditoria e recusas |
 
-## Vídeo
 
-- Sprint 3: https://youtu.be/Bxk57Nue2yY
-- **Sprint 4 (fase final):** _link a ser adicionado após a gravação_
-
-## Limitações conhecidas
-
-- Métricas de avaliação são **lexicais** (sem LLM-juiz) e cobrem **um** relatório de referência.
-- O gate de relevância é heurístico (pode exigir ajuste para novos vocabulários).
-- Aviso de `langchain-community` (sunset) permanece no import de `FastEmbedEmbeddings` — não há pacote standalone equivalente.
-- App validado por typecheck + bundles Android/Web + contrato de API; a demo em dispositivo deve ser gravada com emulador/celular.
-
-## Autor
-
-| Nome | RM |
-|---|---|
-| [Renan de Oliveira Mendes](https://www.linkedin.com/in/renanmendes26/) | RM563145 |
-
----
 
 <p align="center">
   <strong>AIReport Gen-Experience</strong> — transformando dados genéticos complexos<br>

@@ -1,12 +1,16 @@
-﻿# AIReport Gen-Experience — App (React Native / Expo)
+# AIReport Gen-Experience — App (React Native / Expo)
 
 Aplicação móvel da Sprint 4 (Etapa 7) consumindo a API REST do projeto.
 
 ## Requisitos
 
 - Node.js 18+ (validado com Node 22)
-- API rodando localmente (`python -m uvicorn api.main:app --port 8010`)
+- API acessivel na rede (obrigatorio para celular fisico):
+  `python -m uvicorn api.main:app --host 0.0.0.0 --port 8010`
+- Porta 8010 liberada no firewall do PC (uma vez, PowerShell **como admin**):
+  `New-NetFirewallRule -DisplayName "AIReport API 8010" -Direction Inbound -LocalPort 8010 -Protocol TCP -Action Allow`
 - Expo Go no celular **ou** emulador Android
+- Celular e PC na **mesma rede Wi-Fi**
 
 ## Instalação e execução
 
@@ -22,21 +26,32 @@ npm run bundle:android  # bundle de produção (validação sem emulador)
 
 ## Configurando o endereço da API
 
-O padrão é resolvido em `src/config.ts`:
+`src/config.ts` resolve o endereco automaticamente, nesta ordem:
 
-| Ambiente | Padrão |
-|---|---|
-| Emulador Android | `http://10.0.2.2:8010` |
-| iOS / Expo Web | `http://localhost:8010` |
-| Expo Go (celular) | defina `EXPO_PUBLIC_BASE_URL` |
+| Prioridade | Origem | Quando usar |
+|---|---|---|
+| 1 | `EXPO_PUBLIC_BASE_URL` | Voce quer forcar um endereco |
+| 2 | **Auto-deteccao do Metro** (`expo-constants`) | Celular via Expo Go — pega o IP do PC sozinho |
+| 3 | `http://10.0.2.2:8010` (Android) / `http://localhost:8010` | Emulador / web |
 
-Exemplo (IP da sua máquina na LAN):
+**Celular (Expo Go):** nao precisa configurar nada — o app descobre o IP do PC
+no host do Metro. Somente garanta que a API esta em `0.0.0.0` e a porta liberada.
+
+**Forcar um endereco especifico (opcional):**
 
 ```bash
+# Windows (PowerShell)
+$env:EXPO_PUBLIC_BASE_URL="http://192.168.15.16:8010"; npm start
+# Linux/macOS
 EXPO_PUBLIC_BASE_URL=http://192.168.0.10:8010 npm start
 ```
 
-> Android (aplicativo real / arquiteturas novas): use o IP da LAN, não 10.0.2.2.
+**Teste rapido do endereco** (no navegador do proprio celular):
+`http://<IP-do-PC>:8010/api/v1/health` deve responder `{"status":"ok"}`.
+Se nao responder: a API nao esta em `0.0.0.0` ou o firewall esta bloqueando.
+
+> Erro "Falha de conexao com a API (...)" = endereco errado, API nao acessivel
+> na rede ou firewall fechado. Emulador Android usa `10.0.2.2`, nunca `localhost`.
 
 ## Fluxo do app
 
@@ -72,6 +87,8 @@ estado de conexão (`apiOnline` do `AppContext`).
 - `npm run bundle:web` (bundle web + caminho de CORS)
 - API local: fluxo E2E completo (consent → report → chat → reprocess → ops)
 - Preflight `OPTIONS` + `Access-Control-Allow-Origin` validados contra a API
+- Conexao em rede (Sprint 4, corrigido): auto-deteccao do IP do PC no Expo Go;
+  API validada em `0.0.0.0` e acesso pelo IP da LAN
 
 ## Estrutura
 

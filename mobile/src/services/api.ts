@@ -58,7 +58,10 @@ async function request<T>(path: string, options: RequestOptions = {}): Promise<T
     if (error instanceof ApiError) {
       throw error;
     }
-    throw new ApiError(0, 'Falha de conexão com a API. Verifique o endereço em config.ts.');
+    throw new ApiError(
+      0,
+      `Falha de conexão com a API (${API_PREFIX}). Verifique se a API esta acessivel na rede.`,
+    );
   } finally {
     clearTimeout(timer);
   }
